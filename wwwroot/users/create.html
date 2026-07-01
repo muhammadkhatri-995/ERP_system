@@ -217,7 +217,7 @@
                 if (response.ok) {
                     showAlert('User created successfully!', 'success');
                     setTimeout(() => {
-                        window.location.href = 'users-list.html';
+                        window.location.href = 'index.html';
                     }, 2000);
                 } else {
                     const errData = await response.json().catch(() => ({}));
