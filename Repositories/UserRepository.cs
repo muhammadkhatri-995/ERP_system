@@ -89,6 +89,7 @@ namespace ERP_sys.Repositories
             command.Parameters.AddWithValue("@RoleId", user.RoleId);
             command.Parameters.AddWithValue("@DepartmentId", user.DepartmentId);
             command.Parameters.AddWithValue("@DesignationId", user.DesignationId);
+            command.Parameters.Add("@ProfilePicture", SqlDbType.NVarChar, -1).Value = string.IsNullOrEmpty(user.ProfilePicture) ? (object)DBNull.Value : user.ProfilePicture;
 
             return (int)await command.ExecuteScalarAsync();
         }
@@ -115,7 +116,8 @@ namespace ERP_sys.Repositories
                     DepartmentId = reader.GetInt32(6),
                     departmentName = reader.GetString(7),
                     DesignationId = reader.GetInt32(8),
-                    designationName = reader.GetString(9)
+                    designationName = reader.GetString(9),
+                    ProfilePicture = reader.IsDBNull(10) ? null : reader.GetString(10)
                 });
             }
             return list;
@@ -135,6 +137,7 @@ namespace ERP_sys.Repositories
             command.Parameters.AddWithValue("@RoleId", user.RoleId);
             command.Parameters.AddWithValue("@DepartmentId", user.DepartmentId);
             command.Parameters.AddWithValue("@DesignationId", user.DesignationId);
+            command.Parameters.Add("@ProfilePicture", SqlDbType.NVarChar, -1).Value = string.IsNullOrEmpty(user.ProfilePicture) ? (object)DBNull.Value : user.ProfilePicture;
 
             int rowsAffected = await command.ExecuteNonQueryAsync();
             return rowsAffected > 0;

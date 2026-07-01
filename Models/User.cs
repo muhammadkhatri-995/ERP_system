@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 namespace ERP_sys.Models
 {
     public class User
@@ -13,11 +14,14 @@ namespace ERP_sys.Models
         public string PasswordHash { get; set; } = string.Empty;
 
         public String departmentName { get; set; } = String.Empty;
+
         public string  roleName { get; set; } = string.Empty;
 
         public string designationName { get; set; } = string.Empty;
 
         public bool IsActive {  get; set; } 
+
+        public String ProfilePicture { get; set; } = String.Empty;
 
 
         // forgein keys 

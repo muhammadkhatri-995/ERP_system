@@ -4,18 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP - Create New User</title>
-    <!-- Tailwind CSS for Modern Enterprise UI -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for professional icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 antialiased">
 
     <div class="flex min-h-screen">
-        <!-- Main Form Container -->
         <div class="m-auto w-full max-w-2xl p-6">
-
-            <!-- Card Wrapper -->
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
 
                 <!-- Card Header -->
@@ -27,13 +22,25 @@
                     <i class="fa-solid fa-user-plus text-2xl text-indigo-400"></i>
                 </div>
 
-                <!-- Form Content -->
                 <form id="createUserForm" class="p-8 space-y-6">
 
-                    <!-- Alert Message Container -->
+                    <!-- Alert -->
                     <div id="alertMessage" class="hidden p-4 rounded-lg text-sm font-medium"></div>
 
-                    <!-- Row 1: Username & Email -->
+                    <!-- Profile Picture -->
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="relative">
+                            <img id="profilePreview" src="https://ui-avatars.com/api/?name=User&background=e0e7ff&color=4f46e5&size=96"
+                                 class="w-24 h-24 rounded-full object-cover border-4 border-indigo-100 shadow-sm">
+                            <label for="profilePicture" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer shadow">
+                                <i class="fa-solid fa-camera text-xs"></i>
+                            </label>
+                        </div>
+                        <input type="file" id="profilePicture" accept="image/*" class="hidden">
+                        <p class="text-xs text-slate-400">Click the camera icon to upload a photo</p>
+                    </div>
+
+                    <!-- Row 1: Name & Email -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Username</label>
@@ -51,76 +58,153 @@
                         </div>
                     </div>
 
-                    <!-- Row 2: Password -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Password</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-lock"></i></span>
-                            <input type="password" id="password" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors" placeholder="••••••••">
+                    <!-- Row 2: Password & Confirm Password -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Password</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" id="password" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors" placeholder="••••••••">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Confirm Password</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" id="confirmPassword" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors" placeholder="••••••••">
+                            </div>
+                            <p id="passwordMismatch" class="hidden text-xs text-red-500 mt-1">Passwords do not match.</p>
                         </div>
                     </div>
 
                     <!-- Row 3: Active Status -->
                     <div class="flex items-center space-x-2">
-                        <input type="checkbox" id="isActive" checked class="h-4 w-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 cursor-pointer">
+                        <input type="checkbox" id="isActive" checked class="h-4 w-4 text-indigo-600 border-slate-300 rounded cursor-pointer">
                         <label for="isActive" class="text-sm font-medium text-slate-600 cursor-pointer">Active Account</label>
                     </div>
 
-                    <!-- Row 4: Foreign Key IDs (Role, Department, Designation) -->
+                    <!-- Row 4: Dropdowns -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Role ID</label>
-                            <input type="number" id="roleId" required min="1" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors" placeholder="e.g. 1">
+                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Role</label>
+                            <select id="roleDropdown" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors cursor-pointer">
+                                <option value="">Select Role</option>
+                            </select>
                         </div>
-
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Department ID</label>
-                            <input type="number" id="departmentId" required min="1" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors" placeholder="e.g. 1">
+                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Department</label>
+                            <select id="deptDropdown" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors cursor-pointer">
+                                <option value="">Select Department</option>
+                            </select>
                         </div>
-
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Designation ID</label>
-                            <input type="number" id="designationId" required min="1" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors" placeholder="e.g. 1">
+                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Designation</label>
+                            <select id="desigDropdown" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors cursor-pointer">
+                                <option value="">Select Designation</option>
+                            </select>
                         </div>
                     </div>
 
                     <hr class="border-slate-100 my-2">
 
                     <!-- Form Actions -->
-                    <div class="flex items-center justify-end space-x-3">
+                    <div class="flex items-center justify-between">
                         <button type="button" onclick="window.location.href='index.html'" class="px-5 py-2.5 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
                             <i class="fa-solid fa-list mr-1"></i> View All Users
                         </button>
-                        <button type="button" onclick="window.location.href='index.html'" class="px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                            Cancel
-                        </button>
-                        <button type="submit" class="px-6 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-lg shadow-sm transition-colors cursor-pointer">
-                            Save User
-                        </button>
+                        <div class="flex items-center space-x-3">
+                            <button type="button" onclick="window.location.href='index.html'" class="px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-6 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-lg shadow-sm transition-colors cursor-pointer">
+                                Save User
+                            </button>
+                        </div>
                     </div>
 
                 </form>
             </div>
-
         </div>
     </div>
 
-    <!-- JavaScript to Handle Data Submission -->
     <script>
         const API_BASE_URL = '/api';
 
-        // Form Submit handler
+        // Load all dropdowns on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadDropdown('/roles', 'roleDropdown', 'id', 'roleName');
+            await loadDropdown('/departments', 'deptDropdown', 'departmentId', 'departmentName');
+            await loadDropdown('/designations', 'desigDropdown', 'id', 'designationName');
+        });
+
+        // Generic dropdown loader
+        async function loadDropdown(endpoint, elementId, valueKey, textKey) {
+            const dropdown = document.getElementById(elementId);
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`);
+                if (!response.ok) throw new Error(`Failed to fetch ${endpoint}`);
+                const data = await response.json();
+                if (!Array.isArray(data) || data.length === 0) return;
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item[valueKey];
+                    option.textContent = item[textKey];
+                    dropdown.appendChild(option);
+                });
+            } catch (error) {
+                console.error(`Dropdown error (${elementId}):`, error);
+            }
+        }
+
+        // Profile picture preview
+        document.getElementById('profilePicture').addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('profilePreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Convert image file to base64 string
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Form submit
         document.getElementById('createUserForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Confirm password check
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const mismatchMsg = document.getElementById('passwordMismatch');
+
+            if (password !== confirmPassword) {
+                mismatchMsg.classList.remove('hidden');
+                return;
+            }
+            mismatchMsg.classList.add('hidden');
+
+            // Convert profile picture to base64 if selected
+            const picFile = document.getElementById('profilePicture').files[0];
+            const profilePicture = picFile ? await toBase64(picFile) : '';
 
             const payload = {
                 name: document.getElementById('username').value.trim(),
                 email: document.getElementById('email').value.trim(),
-                password: document.getElementById('password').value,
+                passwordHash: password,
                 isActive: document.getElementById('isActive').checked,
-                roleId: parseInt(document.getElementById('roleId').value),
-                departmentId: parseInt(document.getElementById('departmentId').value),
-                designationId: parseInt(document.getElementById('designationId').value)
+                roleId: parseInt(document.getElementById('roleDropdown').value),
+                departmentId: parseInt(document.getElementById('deptDropdown').value),
+                designationId: parseInt(document.getElementById('desigDropdown').value),
+                profilePicture: profilePicture
             };
 
             try {
@@ -130,10 +214,10 @@
                     body: JSON.stringify(payload)
                 });
 
-                if ( response.ok) {
-                    showAlert('User created successfully! ', 'success');
+                if (response.ok) {
+                    showAlert('User created successfully!', 'success');
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        window.location.href = 'users-list.html';
                     }, 2000);
                 } else {
                     const errData = await response.json().catch(() => ({}));
@@ -152,9 +236,7 @@
                 alertDiv.classList.add('bg-green-50', 'text-green-700');
             } else {
                 alertDiv.classList.add('bg-red-50', 'text-red-700');
-                setTimeout(() => {
-                    alertDiv.classList.add('hidden');
-                }, 5000);
+                setTimeout(() => alertDiv.classList.add('hidden'), 5000);
             }
             alertDiv.textContent = msg;
         }
