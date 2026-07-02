@@ -1,6 +1,7 @@
 //using ERP_sys.Data; // Ensure this matches the namespace inside your SqlConnectionFactory.cs
 
 using ERP_sys.Data;
+using ERP_sys.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddSingleton<SqlConnectionFactory>();
 
 // REGISTER YOUR REPOSITORY HERE 
 builder.Services.AddScoped<ERP_sys.Repositories.UserRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
 
 // Swagger/OpenAPI Configuration
 builder.Services.AddEndpointsApiExplorer();
