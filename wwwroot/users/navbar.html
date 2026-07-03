@@ -52,314 +52,6 @@
             .chevron.rotated {
                 transform: rotate(180deg);
             }
-    </style>
-</head>
-<body class="bg-slate-100 font-sans text-slate-800 antialiased">
-    <div class="flex min-h-screen">-->
-<!-- Sidebar -->
-<!--<aside class="w-64 bg-slate-900 flex flex-col fixed top-0 left-0 h-full z-40 shadow-xl">
-    <div class="px-6 py-5 border-b border-slate-700/50 flex items-center space-x-3">
-        <div class="bg-indigo-600 rounded-lg w-9 h-9 flex items-center justify-center shadow">
-            <i class="fa-solid fa-building text-white text-sm"></i>
-        </div>
-        <div>
-            <p class="text-white font-bold text-base leading-tight">ERP System</p>
-            <p class="text-slate-400 text-xs">Management Portal</p>
-        </div>
-    </div>
-    <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        <a href="index.html" class="nav-link active flex items-center space-x-3 px-3 py-2.5 rounded-lg cursor-pointer border-l-0">
-            <i class="fa-solid fa-gauge-high text-slate-400 w-4 text-center"></i>
-            <span class="text-slate-200 text-sm font-medium">Dashboard</span>
-        </a>
-        <div>
-            <button onclick="toggleMenu('employeeMenu','employeeChevron')"
-                    class="nav-link w-full flex items-center justify-between px-3 py-2.5 rounded-lg">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-users text-slate-400 w-4 text-center"></i>
-                    <span class="text-slate-200 text-sm font-medium">Employees</span>
-                </div>
-                <i class="fa-solid fa-chevron-down text-slate-500 text-xs chevron rotated" id="employeeChevron"></i>
-            </button>
-            <div class="submenu open pl-10 space-y-0.5 mt-0.5" id="employeeMenu">
-                <a href="index.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-list text-xs"></i><span>View Employees</span>
-                </a>
-                <a href="create.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-user-plus text-xs"></i><span>Add Employee</span>
-                </a>
-            </div>
-        </div>
-        <div>
-            <button onclick="toggleMenu('ledgerMenu','ledgerChevron')"
-                    class="nav-link w-full flex items-center justify-between px-3 py-2.5 rounded-lg">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-book text-slate-400 w-4 text-center"></i>
-                    <span class="text-slate-200 text-sm font-medium">Sales Ledger</span>
-                </div>
-                <i class="fa-solid fa-chevron-down text-slate-500 text-xs chevron" id="ledgerChevron"></i>
-            </button>
-            <div class="submenu closed pl-10 space-y-0.5 mt-0.5" id="ledgerMenu">
-                <a href="ledger-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-receipt text-xs"></i><span>View Ledger</span>
-                </a>
-                <a href="ledger-add.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-plus text-xs"></i><span>Add Entry</span>
-                </a>
-                <a href="customer-add.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-user-plus text-xs"></i>
-                    <span>👤 Add Customer</span>
-                </a>
-
-                <a href="customer-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
-                    <i class="fa-solid fa-users text-xs"></i>
-                    <span>👥 View Customers</span>
-                </a>
-
-            </div>
-        </div>
-    </nav>
-    <div class="px-4 py-4 border-t border-slate-700/50">
-        <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">A</div>
-            <div>
-                <p class="text-slate-200 text-xs font-medium">Admin</p>
-                <p class="text-slate-500 text-xs">Administrator</p>
-            </div>
-        </div>
-    </div>
-</aside>-->
-<!-- Main Content -->
-<!--<main class="flex-1 ml-64">
-    <div class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm sticky top-0 z-30">
-        <div>
-            <h1 class="text-lg font-semibold text-slate-900">Dashboard</h1>
-            <p class="text-xs text-slate-400">Welcome back to ERP System</p>
-        </div>
-        <span class="text-xs text-slate-400" id="currentDate"></span>
-    </div>
-
-    <div class="p-8">-->
-<!-- Stat Cards -->
-<!--<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-        <div class="flex items-center justify-between mb-3">
-            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Employees</p>
-            <div class="bg-indigo-50 rounded-lg w-9 h-9 flex items-center justify-center">
-                <i class="fa-solid fa-users text-indigo-600 text-sm"></i>
-            </div>
-        </div>
-        <p class="text-3xl font-bold text-slate-900" id="totalEmployees">—</p>
-        <p class="text-xs text-slate-400 mt-1">Registered in system</p>
-    </div>
-    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-        <div class="flex items-center justify-between mb-3">
-            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active</p>
-            <div class="bg-green-50 rounded-lg w-9 h-9 flex items-center justify-center">
-                <i class="fa-solid fa-circle-check text-green-600 text-sm"></i>
-            </div>
-        </div>
-        <p class="text-3xl font-bold text-slate-900" id="activeEmployees">—</p>
-        <p class="text-xs text-slate-400 mt-1">Currently active</p>
-    </div>
-    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-        <div class="flex items-center justify-between mb-3">
-            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Inactive</p>
-            <div class="bg-red-50 rounded-lg w-9 h-9 flex items-center justify-center">
-                <i class="fa-solid fa-circle-xmark text-red-500 text-sm"></i>
-            </div>
-        </div>
-        <p class="text-3xl font-bold text-slate-900" id="inactiveEmployees">—</p>
-        <p class="text-xs text-slate-400 mt-1">Deactivated accounts</p>
-    </div>
-    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-        <div class="flex items-center justify-between mb-3">
-            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Departments</p>
-            <div class="bg-violet-50 rounded-lg w-9 h-9 flex items-center justify-center">
-                <i class="fa-solid fa-building text-violet-600 text-sm"></i>
-            </div>
-        </div>
-        <p class="text-3xl font-bold text-slate-900" id="totalDepts">—</p>
-        <p class="text-xs text-slate-400 mt-1">Active departments</p>
-    </div>
-</div>-->
-<!-- Quick Actions -->
-<!--<div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-8">
-    <h2 class="text-sm font-semibold text-slate-700 uppercase tracking-wider mb-4">Quick Actions</h2>
-    <div class="flex flex-wrap gap-3">
-        <button onclick="window.location.href='create.html'"
-                class="flex items-center space-x-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
-            <i class="fa-solid fa-user-plus text-xs"></i><span>Add Employee</span>
-        </button>
-        <button onclick="window.location.href='index.html'"
-                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm">
-            <i class="fa-solid fa-users text-xs text-slate-500"></i><span>View Employees</span>
-        </button>
-        <button onclick="window.location.href='ledger-add.html'"
-                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm">
-            <i class="fa-solid fa-plus text-xs text-slate-500"></i><span>Add Ledger Entry</span>
-        </button>
-        <button onclick="window.location.href='ledger-list.html'"
-                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm">
-            <i class="fa-solid fa-book text-xs text-slate-500"></i><span>View Ledger</span>
-        </button>
-        <button onclick="window.location.href='customer-add.html'"
-                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm">
-            <i class="fa-solid fa-book text-xs text-slate-500"></i><span>Add Customer</span>
-        </button>
-        <button onclick="window.location.href='customer-list.html'"
-                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm">
-            <i class="fa-solid fa-book text-xs text-slate-500"></i><span>View Customers</span>
-        </button>
-    </div>
-</div>-->
-<!-- Recent Employees -->
-<!--<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                        <h2 class="text-sm font-semibold text-slate-700 uppercase tracking-wider">Recent Employees</h2>
-                        <a href="index.html" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">View all →</a>
-                    </div>
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-                            <tr>
-                                <th class="px-6 py-3 text-left">Employee</th>
-                                <th class="px-6 py-3 text-left">Department</th>
-                                <th class="px-6 py-3 text-left">Role</th>
-                                <th class="px-6 py-3 text-left">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentEmployees" class="divide-y divide-slate-100">
-                            <tr><td colspan="4" class="px-6 py-6 text-center text-slate-400">Loading...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script>
-    document.getElementById('currentDate').textContent =
-        new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-    function toggleMenu(menuId, chevronId) {
-        const menu = document.getElementById(menuId);
-        const chevron = document.getElementById(chevronId);
-        menu.classList.toggle('open');
-        menu.classList.toggle('closed');
-        chevron.classList.toggle('rotated');
-    }
-
-    async function loadDashboard() {
-        try {
-            const [usersRes, deptsRes] = await Promise.all([
-                fetch('/api/users'),
-                fetch('/api/departments')
-            ]);
-            const users = await usersRes.json();
-            const depts = await deptsRes.json();
-
-            document.getElementById('totalEmployees').textContent = users.length;
-            document.getElementById('activeEmployees').textContent = users.filter(u => u.isActive).length;
-            document.getElementById('inactiveEmployees').textContent = users.filter(u => !u.isActive).length;
-            document.getElementById('totalDepts').textContent = depts.length;
-
-            const recent = users.slice(0, 5);
-            const tbody = document.getElementById('recentEmployees');
-
-            if (recent.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-6 text-center text-slate-400">No employees yet.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = recent.map(u => {
-                const avatarSrc = (u.profilePicture && u.profilePicture.startsWith('data:'))
-                    ? u.profilePicture
-                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name)}&background=e0e7ff&color=4f46e5&size=40&bold=true`;
-                return `
-                <tr class="hover:bg-slate-50">
-                    <td class="px-6 py-3">
-                        <div class="flex items-center space-x-3">
-                            <img src="${avatarSrc}" class="w-8 h-8 rounded-full object-cover">
-                            <div>
-                                <p class="font-medium text-slate-800 text-sm">${u.name}</p>
-                                <p class="text-xs text-slate-400">${u.email}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-6 py-3 text-slate-600 text-sm">${u.departmentName}</td>
-                    <td class="px-6 py-3 text-slate-600 text-sm">${u.roleName}</td>
-                    <td class="px-6 py-3">
-                        <span class="px-2 py-1 rounded-full text-xs font-medium ${u.isActive ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}">
-                            ${u.isActive ? 'Active' : 'Inactive'}
-                        </span>
-                    </td>
-                </tr>`;
-            }).join('');
-        } catch (err) {
-            console.error('Dashboard load error:', err);
-        }
-    }
-
-    loadDashboard();
-    </script>
-</body>
-</html>-->
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERP System</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .nav-link {
-            transition: all 0.15s ease;
-        }
-
-            .nav-link:hover {
-                background: rgba(255,255,255,0.08);
-            }
-
-            .nav-link.active {
-                background: rgba(99,102,241,0.25);
-                border-left: 3px solid #6366f1;
-            }
-
-                .nav-link.active i {
-                    color: #a5b4fc;
-                }
-
-        .submenu {
-            overflow: hidden;
-            transition: max-height 0.25s ease;
-        }
-
-            .submenu.closed {
-                max-height: 0;
-            }
-
-            .submenu.open {
-                max-height: 200px;
-            }
-
-        .submenu-link:hover {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .submenu-link.active {
-            color: #a5b4fc;
-        }
-
-        .chevron {
-            transition: transform 0.2s ease;
-        }
-
-            .chevron.rotated {
-                transform: rotate(180deg);
-            }
 
         /* Custom thin scrollbar layout for drawer container */
         .drawer-scrollbar::-webkit-scrollbar {
@@ -426,7 +118,7 @@
                         <i class="fa-solid fa-chevron-down text-slate-500 text-xs chevron" id="ledgerChevron"></i>
                     </button>
                     <div class="submenu closed pl-10 space-y-0.5 mt-0.5" id="ledgerMenu">
-                        <a href="ledger-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
+                        <a href="sales-ledger-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
                             <i class="fa-solid fa-receipt text-xs"></i><span>View Ledger</span>
                         </a>
                         <a href="ledger-add.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
@@ -524,7 +216,7 @@
                                 class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
                             <i class="fa-solid fa-plus text-xs text-slate-500"></i><span>Add Ledger Entry</span>
                         </button>
-                        <button onclick="window.location.href='ledger-list.html'"
+                        <button onclick="window.location.href='sales-ledger-list.html'"
                                 class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
                             <i class="fa-solid fa-book text-xs text-slate-500"></i><span>View Ledger</span>
                         </button>
@@ -701,6 +393,582 @@
                             </span>
                         </td>
                     </tr>`;
+                }).join('');
+            } catch (err) {
+                console.error('Dashboard load error:', err);
+            }
+        }
+
+        loadDashboard();
+
+        // ==========================================
+        // ERP SLIDING RIGHT SIDE DRAWER ENGINE LAYER
+        // ==========================================
+
+        function openCustomerDrawer() {
+            const overlay = document.getElementById('drawerOverlay');
+            const drawer = document.getElementById('customerDrawer');
+
+            overlay.classList.remove('pointer-events-none', 'opacity-0');
+            overlay.classList.add('opacity-100');
+
+            drawer.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeCustomerDrawer() {
+            const overlay = document.getElementById('drawerOverlay');
+            const drawer = document.getElementById('customerDrawer');
+
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+
+            drawer.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+
+            clearValidationErrors();
+        }
+
+        // Capture global Escape Key Event
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const drawer = document.getElementById('customerDrawer');
+                if (!drawer.classList.contains('translate-x-full')) {
+                    closeCustomerDrawer();
+                }
+            }
+        });
+
+        function clearValidationErrors() {
+            const errorFields = ['errName', 'errEmail', 'errPhone', 'errCity', 'errCreatedBy'];
+            errorFields.forEach(id => {
+                const element = document.getElementById(id);
+                element.innerText = '';
+                element.classList.add('hidden');
+            });
+        }
+
+        function validateCustomerForm() {
+            clearValidationErrors();
+            let isValid = true;
+
+            const name = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const createdBy = document.getElementById('custCreatedBy').value.trim();
+
+            if (!name) {
+                showFieldError('errName', 'Customer Name is required.');
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                showFieldError('errEmail', 'Email Address is required.');
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                showFieldError('errEmail', 'Please input a valid email format Address.');
+                isValid = false;
+            }
+
+            if (!phone) {
+                showFieldError('errPhone', 'Phone Number identification is required.');
+                isValid = false;
+            }
+
+            if (!city) {
+                showFieldError('errCity', 'City specification field is required.');
+                isValid = false;
+            }
+
+            if (!createdBy) {
+                showFieldError('errCreatedBy', 'Created By identifier assignment parameter required.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(elementId, textMessage) {
+            const element = document.getElementById(elementId);
+            element.innerText = textMessage;
+            element.classList.remove('hidden');
+        }
+
+        function spawnToast(messageText, notificationType = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+
+            toast.className = `flex items-center space-x-3 px-4 py-3 rounded-xl shadow-lg border text-sm transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
+
+            if (notificationType === 'success') {
+                toast.className += ' bg-emerald-50 border-emerald-200 text-emerald-800';
+                toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 text-base"></i><span>${messageText}</span>`;
+            } else {
+                toast.className += ' bg-rose-50 border-rose-200 text-rose-800';
+                toast.innerHTML = `<i class="fa-solid fa-circle-exclamation text-rose-500 text-base"></i><span>${messageText}</span>`;
+            }
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-4px]');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 4000);
+        }
+
+        async function submitCustomer() {
+            if (!validateCustomerForm()) return;
+
+            const saveBtn = document.getElementById('btnSaveCustomer');
+            const spinner = document.getElementById('loadingSpinner');
+            const btnText = document.getElementById('btnText');
+
+            saveBtn.disabled = true;
+            spinner.classList.remove('hidden');
+            btnText.innerText = 'Saving...';
+
+            const payload = {
+                name: document.getElementById('custName').value.trim(),
+                email: document.getElementById('custEmail').value.trim(),
+                phone: document.getElementById('custPhone').value.trim(),
+                city: document.getElementById('custCity').value.trim(),
+                createdBy: parseInt(document.getElementById('custCreatedBy').value.trim() || "1", 10),
+                address: document.getElementById('custAddress').value.trim()
+            };
+
+            try {
+                const response = await fetch('/api/customer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    spawnToast('Customer created successfully', 'success');
+                    document.getElementById('customerForm').reset();
+
+                    setTimeout(() => {
+                        closeCustomerDrawer();
+                    }, 1000);
+                } else {
+                    spawnToast(`Server error status code reported: ${response.status}`, 'error');
+                }
+            } catch (networkError) {
+                console.error('API Context error connection tracking:', networkError);
+                spawnToast('Network connectivity connection error. Failed to hit backend gateway route.', 'error');
+            } finally {
+                saveBtn.disabled = false;
+                spinner.classList.add('hidden');
+                btnText.innerText = 'Save Customer';
+            }
+        }
+    </script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .nav-link {
+            transition: all 0.15s ease;
+        }
+
+            .nav-link:hover {
+                background: rgba(255,255,255,0.08);
+            }
+
+            .nav-link.active {
+                background: rgba(99,102,241,0.25);
+                border-left: 3px solid #6366f1;
+            }
+
+                .nav-link.active i {
+                    color: #a5b4fc;
+                }
+
+        .submenu {
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+
+            .submenu.closed {
+                max-height: 0;
+            }
+
+            .submenu.open {
+                max-height: 200px;
+            }
+
+        .submenu-link:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .submenu-link.active {
+            color: #a5b4fc;
+        }
+
+        .chevron {
+            transition: transform 0.2s ease;
+        }
+
+            .chevron.rotated {
+                transform: rotate(180deg);
+            }
+
+        /* Custom thin scrollbar layout for drawer container */
+        .drawer-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .drawer-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .drawer-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+            .drawer-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 antialiased">
+    <div class="flex min-h-screen">
+
+        <aside class="w-64 bg-slate-900 flex flex-col fixed top-0 left-0 h-full z-40 shadow-xl">
+            <div class="px-6 py-5 border-b border-slate-700/50 flex items-center space-x-3">
+                <div class="bg-indigo-600 rounded-lg w-9 h-9 flex items-center justify-center shadow">
+                    <i class="fa-solid fa-building text-white text-sm"></i>
+                </div>
+                <div>
+                    <p class="text-white font-bold text-base leading-tight">ERP System</p>
+                    <p class="text-slate-400 text-xs">Management Portal</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                <a href="/users/index.html" class="nav-link active flex items-center space-x-3 px-3 py-2.5 rounded-lg cursor-pointer border-l-0">
+                    <i class="fa-solid fa-gauge-high text-slate-400 w-4 text-center"></i>
+                    <span class="text-slate-200 text-sm font-medium">Dashboard</span>
+                </a>
+                <div>
+                    <button onclick="toggleMenu('employeeMenu','employeeChevron')"
+                            class="nav-link w-full flex items-center justify-between px-3 py-2.5 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-users text-slate-400 w-4 text-center"></i>
+                            <span class="text-slate-200 text-sm font-medium">Employees</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-500 text-xs chevron rotated" id="employeeChevron"></i>
+                    </button>
+                    <div class="submenu open pl-10 space-y-0.5 mt-0.5" id="employeeMenu">
+                        <a href="/users/index.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
+                            <i class="fa-solid fa-list text-xs"></i><span>View Employees</span>
+                        </a>
+                        <a href="/users/create.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
+                            <i class="fa-solid fa-user-plus text-xs"></i><span>Add Employee</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <button onclick="toggleMenu('ledgerMenu','ledgerChevron')"
+                            class="nav-link w-full flex items-center justify-between px-3 py-2.5 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-book text-slate-400 w-4 text-center"></i>
+                            <span class="text-slate-200 text-sm font-medium">Sales Ledger</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-500 text-xs chevron" id="ledgerChevron"></i>
+                    </button>
+                    <div class="submenu closed pl-10 space-y-0.5 mt-0.5" id="ledgerMenu">
+                        <a href="/users/sales-ledger-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
+                            <i class="fa-solid fa-receipt text-xs"></i><span>View Ledger</span>
+                        </a>
+                        <a href="/users/ledger-add.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
+                            <i class="fa-solid fa-plus text-xs"></i><span>Add Entry</span>
+                        </a>
+                        <button onclick="openCustomerDrawer()" class="w-full submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors text-left">
+                            <i class="fa-solid fa-user-plus text-xs"></i>
+                            <span>Add Customer</span>
+                        </button>
+
+                        <a href="/users/customer-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-400 text-sm hover:text-slate-200 transition-colors">
+                            <i class="fa-solid fa-users text-xs"></i>
+                            <span>View Customers</span>
+                        </a>
+
+                    </div>
+                </div>
+            </nav>
+            <div class="px-4 py-4 border-t border-slate-700/50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">A</div>
+                    <div>
+                        <p class="text-slate-200 text-xs font-medium">Admin</p>
+                        <p class="text-slate-500 text-xs">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 ml-64">
+            <div class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm sticky top-0 z-30">
+                <div>
+                    <h1 class="text-lg font-semibold text-slate-900">Dashboard</h1>
+                    <p class="text-xs text-slate-400">Welcome back to ERP System</p>
+                </div>
+                <span class="text-xs text-slate-400" id="currentDate"></span>
+            </div>
+
+            <div class="p-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Employees</p>
+                            <div class="bg-indigo-50 rounded-lg w-9 h-9 flex items-center justify-center">
+                                <i class="fa-solid fa-users text-indigo-600 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="totalEmployees">—</p>
+                        <p class="text-xs text-slate-400 mt-1">Registered in system</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active</p>
+                            <div class="bg-green-50 rounded-lg w-9 h-9 flex items-center justify-center">
+                                <i class="fa-solid fa-circle-check text-green-600 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="activeEmployees">—</p>
+                        <p class="text-xs text-slate-400 mt-1">Currently active</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Inactive</p>
+                            <div class="bg-red-50 rounded-lg w-9 h-9 flex items-center justify-center">
+                                <i class="fa-solid fa-circle-xmark text-red-500 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="inactiveEmployees">—</p>
+                        <p class="text-xs text-slate-400 mt-1">Deactivated accounts</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Departments</p>
+                            <div class="bg-violet-50 rounded-lg w-9 h-9 flex items-center justify-center">
+                                <i class="fa-solid fa-building text-violet-600 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="totalDepts">—</p>
+                        <p class="text-xs text-slate-400 mt-1">Active departments</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-8">
+                    <h2 class="text-sm font-semibold text-slate-700 uppercase tracking-wider mb-4">Quick Actions</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="window.location.href='/users/create.html'"
+                                class="flex items-center space-x-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-user-plus text-xs"></i><span>Add Employee</span>
+                        </button>
+                        <button onclick="window.location.href='/users/index.html'"
+                                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-users text-xs text-slate-500"></i><span>View Employees</span>
+                        </button>
+                        <button onclick="window.location.href='/users/ledger-add.html'"
+                                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-plus text-xs text-slate-500"></i><span>Add Ledger Entry</span>
+                        </button>
+                        <button onclick="window.location.href='/users/sales-ledger-list.html'"
+                                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-book text-xs text-slate-500"></i><span>View Ledger</span>
+                        </button>
+                        <button onclick="openCustomerDrawer()"
+                                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-user-plus text-xs text-slate-500"></i><span>Add Customer</span>
+                        </button>
+                        <button onclick="window.location.href='/users/customer-list.html'"
+                                class="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium rounded-lg transition-colors border border-slate-200 shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-book text-xs text-slate-500"></i><span>View Customers</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                        <h2 class="text-sm font-semibold text-slate-700 uppercase tracking-wider">Recent Employees</h2>
+                        <a href="/users/index.html" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">View all →</a>
+                    </div>
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                            <tr>
+                                <th class="px-6 py-3 text-left">Employee</th>
+                                <th class="px-6 py-3 text-left">Department</th>
+                                <th class="px-6 py-3 text-left">Role</th>
+                                <th class="px-6 py-3 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentEmployees" class="divide-y divide-slate-100">
+                            <tr><td colspan="4" class="px-6 py-6 text-center text-slate-400">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="drawerOverlay"
+         onclick="closeCustomerDrawer()"
+         class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out">
+    </div>
+
+    <div id="customerDrawer"
+         class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-[430px] bg-white rounded-l-2xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col h-screen">
+
+        <div class="p-6 border-b border-slate-100 flex items-start justify-between">
+            <div>
+                <h2 class="text-xl font-bold text-slate-900">Add Customer</h2>
+                <p class="text-xs text-slate-500 mt-1">Create a new customer for Sales Ledger</p>
+            </div>
+            <button onclick="closeCustomerDrawer()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-4 drawer-scrollbar">
+            <form id="customerForm" novalidate>
+
+                <div class="mb-4">
+                    <label for="custName" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Customer Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="custName" name="name" placeholder="e.g. Acme Corporation"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errName" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custEmail" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Email Address <span class="text-red-500">*</span></label>
+                    <input type="email" id="custEmail" name="email" placeholder="billing@company.com"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errEmail" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custPhone" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Phone Number <span class="text-red-500">*</span></label>
+                    <input type="tel" id="custPhone" name="phone" placeholder="+1 (555) 019-2834"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errPhone" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custCity" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">City <span class="text-red-500">*</span></label>
+                    <input type="text" id="custCity" name="city" placeholder="e.g. New York"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errCity" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custCreatedBy" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Created By (User ID) <span class="text-red-500">*</span></label>
+                    <input type="number" id="custCreatedBy" name="createdBy" value="1" placeholder="1"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errCreatedBy" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label for="custAddress" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Street Address</label>
+                    <textarea id="custAddress" name="address" rows="3" placeholder="Suite 400, Floor 4..."
+                              class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400 resize-none"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+            <button type="button" onclick="closeCustomerDrawer()"
+                    class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                Cancel
+            </button>
+            <button type="button" onclick="submitCustomer()" id="btnSaveCustomer"
+                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-sm transition-all flex items-center space-x-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed">
+                <svg id="loadingSpinner" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span id="btnText">Save Customer</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-3 pointer-events-none"></div>
+
+    <script>
+        document.getElementById('currentDate').textContent =
+            new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        function toggleMenu(menuId, chevronId) {
+            const menu = document.getElementById(menuId);
+            const chevron = document.getElementById(chevronId);
+            menu.classList.toggle('open');
+            menu.classList.toggle('closed');
+            chevron.classList.toggle('rotated');
+        }
+
+        async function loadDashboard() {
+            try {
+                const [usersRes, deptsRes] = await Promise.all([
+                    fetch('/api/users'),
+                    fetch('/api/departments')
+                ]);
+                const users = await usersRes.json();
+                const depts = await deptsRes.json();
+
+                document.getElementById('totalEmployees').textContent = users.length;
+                document.getElementById('activeEmployees').textContent = users.filter(u => u.isActive).length;
+                document.getElementById('inactiveEmployees').textContent = users.filter(u => !u.isActive).length;
+                document.getElementById('totalDepts').textContent = depts.length;
+
+                const recent = users.slice(0, 5);
+                const tbody = document.getElementById('recentEmployees');
+
+                if (recent.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-6 text-center text-slate-400">No employees yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = recent.map(u => {
+                    const avatarSrc = (u.profilePicture && u.profilePicture.startsWith('data:'))
+                        ? u.profilePicture
+                        : `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name)}&background=e0e7ff&color=4f46e5&size=40&bold=true`;
+                    return `
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="${avatarSrc}" class="w-8 h-8 rounded-full object-cover">
+                                    <div>
+                                        <p class="font-medium text-slate-800 text-sm">${u.name}</p>
+                                        <p class="text-xs text-slate-400">${u.email}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-3 text-slate-600 text-sm">${u.departmentName}</td>
+                            <td class="px-6 py-3 text-slate-600 text-sm">${u.roleName}</td>
+                            <td class="px-6 py-3">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium ${u.isActive ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}">
+                                    ${u.isActive ? 'Active' : 'Inactive'}
+                                </span>
+                            </td>
+                        </tr>`;
                 }).join('');
             } catch (err) {
                 console.error('Dashboard load error:', err);

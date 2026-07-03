@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Invoice | ERP System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+
+        .row-enter {
+            animation: rowIn 0.15s ease-out;
+        }
+
+        @keyframes rowIn {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <!-- Top bar -->
+    <header class="bg-[#0b0f1a] sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                    🏢
+                </div>
+                <span class="text-white font-semibold text-lg">ERP System</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="sales-ledger-list.html" class="flex items-center gap-2 bg-[#171c2e] hover:bg-[#20263c] text-white text-sm font-medium px-4 py-2 rounded-lg transition border border-slate-700">
+                    <span>📋</span> All Invoices
+                </a>
+                <a href="navbar.html" id="dashboardLink" class="flex items-center gap-2 bg-[#171c2e] hover:bg-[#20263c] text-white text-sm font-medium px-4 py-2 rounded-lg transition border border-slate-700">
+                    <span>📊</span> Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-8">
+
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-slate-900">New Sales Invoice</h1>
+            <p class="text-sm text-slate-500 mt-1">Create a new invoice and add line items</p>
+        </div>
+
+        <p id="formError" class="hidden bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg mb-4"></p>
+        <p id="formSuccess" class="hidden bg-emerald-50 text-emerald-700 text-sm px-4 py-3 rounded-lg mb-4"></p>
+
+        <form id="invoiceForm" onsubmit="submitInvoice(event)">
+
+            <!-- Invoice details card -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden mb-6">
+                <div class="h-2 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
+                <div class="p-6">
+                    <h2 class="text-base font-semibold text-slate-900 mb-4">Invoice Details</h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Invoice No <span class="text-red-500">*</span></label>
+                            <input id="invoiceNo" type="text" required placeholder="INV-2026-0001"
+                                   class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Customer <span class="text-red-500">*</span></label>
+                            <select id="customerId" required
+                                    class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                <option value="">Loading customers…</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Invoice Date <span class="text-red-500">*</span></label>
+                            <input id="invoiceDate" type="date" required
+                                   class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
+                            <input id="dueDate" type="date"
+                                   class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Paid Amount</label>
+                            <input id="paidAmount" type="number" step="0.01" min="0" value="0" oninput="recalculateTotals()"
+                                   class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Payment Status</label>
+                            <input id="paymentStatusDisplay" type="text" readonly
+                                   class="w-full border border-slate-200 bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-500" />
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+                        <textarea id="notes" rows="2"
+                                  class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line items card -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden mb-6">
+                <div class="h-2 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-base font-semibold text-slate-900">Line Items</h2>
+                        <button type="button" onclick="addItemRow()" class="text-sm font-medium text-indigo-600 hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition">
+                            + Add Item
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-left text-xs font-medium text-slate-400 uppercase tracking-wide border-b border-slate-100">
+                                    <th class="pb-2 pr-2">Product</th>
+                                    <th class="pb-2 px-2 w-24">Qty</th>
+                                    <th class="pb-2 px-2 w-28">Unit Price</th>
+                                    <th class="pb-2 px-2 w-24">Discount</th>
+                                    <th class="pb-2 px-2 w-24">Tax</th>
+                                    <th class="pb-2 px-2 w-28">Line Total</th>
+                                    <th class="pb-2 pl-2 w-10"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="itemsBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="itemsError" class="hidden text-sm text-red-600 mt-3"></p>
+                </div>
+            </div>
+
+            <!-- Totals card -->
+            <div class="bg-white border border-slate-200 rounded-xl p-6 mb-6">
+                <div class="flex flex-col items-end gap-2 max-w-xs ml-auto">
+                    <div class="flex justify-between w-full text-sm">
+                        <span class="text-slate-500">Subtotal</span>
+                        <span class="font-medium text-slate-900" id="subtotalDisplay">0.00</span>
+                    </div>
+                    <div class="flex justify-between w-full text-sm items-center gap-3">
+                        <span class="text-slate-500">Discount</span>
+                        <input id="headerDiscount" type="number" step="0.01" min="0" value="0" oninput="recalculateTotals()"
+                               class="w-28 border border-slate-300 rounded-lg px-2 py-1 text-sm text-right focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                    </div>
+                    <div class="flex justify-between w-full text-sm items-center gap-3">
+                        <span class="text-slate-500">Tax</span>
+                        <input id="headerTax" type="number" step="0.01" min="0" value="0" oninput="recalculateTotals()"
+                               class="w-28 border border-slate-300 rounded-lg px-2 py-1 text-sm text-right focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                    </div>
+                    <div class="flex justify-between w-full text-base font-semibold text-slate-900 border-t border-slate-100 pt-2 mt-1">
+                        <span>Grand Total</span>
+                        <span id="grandTotalDisplay">0.00</span>
+                    </div>
+                    <div class="flex justify-between w-full text-sm">
+                        <span class="text-slate-500">Balance Due</span>
+                        <span class="font-medium text-slate-900" id="balanceDisplay">0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <a href="sales-ledger-list.html" class="px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition">Cancel</a>
+                <button type="submit" id="submitBtn" class="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition">
+                    Create Invoice
+                </button>
+            </div>
+        </form>
+
+    </main>
+
+    <script>
+        // ---- Config ----
+        // Adjust these to match your actual controller routes.
+        const CUSTOMER_API = "/api/Customer";
+        const PRODUCT_API = "/api/Product";
+        const SALES_LEDGER_API = "/api/SalesLedger";
+
+        let products = [];
+        let itemRowCount = 0;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("invoiceDate").valueAsDate = new Date();
+            loadCustomers();
+            loadProducts().then(() => addItemRow()); // start with one empty row
+        });
+
+        // ---- Load dropdown data ----
+        async function loadCustomers() {
+            const select = document.getElementById("customerId");
+            try {
+                const res = await fetch(CUSTOMER_API);
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+                const customers = await res.json();
+
+                select.innerHTML = `<option value="">Select a customer…</option>` +
+                    customers.map(c => `<option value="${c.id}" data-name="${escapeHtml(c.name)}">${escapeHtml(c.name)} (#${c.id})</option>`).join("");
+            } catch (err) {
+                select.innerHTML = `<option value="">Couldn't load customers</option>`;
+                showFormError(`Failed to load customers: ${err.message}`);
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const res = await fetch(PRODUCT_API);
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+                products = await res.json();
+            } catch (err) {
+                products = [];
+                showFormError(`Failed to load products: ${err.message}`);
+            }
+        }
+
+        // ---- Line items ----
+        function addItemRow() {
+            itemRowCount++;
+            const rowId = `item-${itemRowCount}`;
+
+            const productOptions = `<option value="">Select product…</option>` +
+                products.map(p => `<option value="${p.id}" data-price="${p.price ?? 0}">${escapeHtml(p.name)}</option>`).join("");
+
+            const row = document.createElement("tr");
+            row.id = rowId;
+            row.className = "row-enter border-b border-slate-50";
+            row.innerHTML = `
+          <td class="py-2 pr-2">
+            <select class="item-product w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" onchange="onProductChange('${rowId}')">
+              ${productOptions}
+            </select>
+          </td>
+          <td class="py-2 px-2">
+            <input type="number" class="item-qty w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" value="1" min="0.01" step="0.01" oninput="recalculateTotals()" />
+          </td>
+          <td class="py-2 px-2">
+            <input type="number" class="item-price w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" value="0" min="0" step="0.01" oninput="recalculateTotals()" />
+          </td>
+          <td class="py-2 px-2">
+            <input type="number" class="item-discount w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" value="0" min="0" step="0.01" oninput="recalculateTotals()" />
+          </td>
+          <td class="py-2 px-2">
+            <input type="number" class="item-tax w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" value="0" min="0" step="0.01" oninput="recalculateTotals()" />
+          </td>
+          <td class="py-2 px-2 text-right font-medium text-slate-900 item-line-total">0.00</td>
+          <td class="py-2 pl-2 text-center">
+            <button type="button" onclick="removeItemRow('${rowId}')" class="text-red-500 hover:text-red-700 text-sm">✕</button>
+          </td>
+        `;
+            document.getElementById("itemsBody").appendChild(row);
+            recalculateTotals();
+        }
+
+        function removeItemRow(rowId) {
+            const rows = document.querySelectorAll("#itemsBody tr");
+            if (rows.length <= 1) {
+                showItemsError("An invoice needs at least one line item.");
+                return;
+            }
+            document.getElementById(rowId).remove();
+            recalculateTotals();
+        }
+
+        // Auto-fill unit price when a product is picked, based on its catalog price.
+        function onProductChange(rowId) {
+            const row = document.getElementById(rowId);
+            const select = row.querySelector(".item-product");
+            const priceInput = row.querySelector(".item-price");
+            const selectedOption = select.options[select.selectedIndex];
+            const catalogPrice = selectedOption ? selectedOption.getAttribute("data-price") : null;
+
+            if (catalogPrice !== null && catalogPrice !== "") {
+                priceInput.value = parseFloat(catalogPrice).toFixed(2);
+            }
+            recalculateTotals();
+        }
+
+        // ---- Totals ----
+        function recalculateTotals() {
+            let subtotal = 0;
+
+            document.querySelectorAll("#itemsBody tr").forEach(row => {
+                const qty = parseFloat(row.querySelector(".item-qty").value) || 0;
+                const price = parseFloat(row.querySelector(".item-price").value) || 0;
+                const discount = parseFloat(row.querySelector(".item-discount").value) || 0;
+                const tax = parseFloat(row.querySelector(".item-tax").value) || 0;
+
+                const lineTotal = (qty * price) - discount + tax;
+                row.querySelector(".item-line-total").textContent = lineTotal.toFixed(2);
+
+                subtotal += lineTotal;
+            });
+
+            const headerDiscount = parseFloat(document.getElementById("headerDiscount").value) || 0;
+            const headerTax = parseFloat(document.getElementById("headerTax").value) || 0;
+            const paidAmount = parseFloat(document.getElementById("paidAmount").value) || 0;
+
+            const grandTotal = subtotal - headerDiscount + headerTax;
+            const balance = grandTotal - paidAmount;
+
+            document.getElementById("subtotalDisplay").textContent = subtotal.toFixed(2);
+            document.getElementById("grandTotalDisplay").textContent = grandTotal.toFixed(2);
+            document.getElementById("balanceDisplay").textContent = balance.toFixed(2);
+
+            // Payment status derives automatically from paid vs grand total —
+            // matches the same logic your repository/controller should apply server-side.
+            let status = "Unpaid";
+            if (paidAmount <= 0) status = "Unpaid";
+            else if (paidAmount >= grandTotal && grandTotal > 0) status = "Paid";
+            else status = "Partial";
+
+            document.getElementById("paymentStatusDisplay").value = status;
+        }
+
+        // ---- Submit ----
+        async function submitInvoice(event) {
+            event.preventDefault();
+            hideFormMessages();
+
+            const customerSelect = document.getElementById("customerId");
+            const customerName = customerSelect.options[customerSelect.selectedIndex]?.getAttribute("data-name") || "";
+
+            const items = [];
+            let hasInvalidItem = false;
+
+            document.querySelectorAll("#itemsBody tr").forEach(row => {
+                const productId = row.querySelector(".item-product").value;
+                const qty = parseFloat(row.querySelector(".item-qty").value) || 0;
+                const price = parseFloat(row.querySelector(".item-price").value) || 0;
+                const discount = parseFloat(row.querySelector(".item-discount").value) || 0;
+                const tax = parseFloat(row.querySelector(".item-tax").value) || 0;
+                const lineTotal = parseFloat(row.querySelector(".item-line-total").textContent) || 0;
+
+                if (!productId || qty <= 0) {
+                    hasInvalidItem = true;
+                    return;
+                }
+
+                items.push({
+                    productId: Number(productId),
+                    quantity: qty,
+                    unitPrice: price,
+                    discount: discount,
+                    tax: tax,
+                    lineTotal: lineTotal
+                });
+            });
+
+            if (hasInvalidItem || items.length === 0) {
+                showItemsError("Every line item needs a product selected and a quantity greater than 0.");
+                return;
+            }
+
+            const payload = {
+                invoiceNo: document.getElementById("invoiceNo").value.trim(),
+                customerId: Number(document.getElementById("customerId").value),
+                customerName: customerName,
+                invoiceDate: document.getElementById("invoiceDate").value,
+                dueDate: document.getElementById("dueDate").value || null,
+                subtotal: parseFloat(document.getElementById("subtotalDisplay").textContent),
+                discount: parseFloat(document.getElementById("headerDiscount").value) || 0,
+                tax: parseFloat(document.getElementById("headerTax").value) || 0,
+                grandTotal: parseFloat(document.getElementById("grandTotalDisplay").textContent),
+                paidAmount: parseFloat(document.getElementById("paidAmount").value) || 0,
+                balance: parseFloat(document.getElementById("balanceDisplay").textContent),
+                paymentStatus: document.getElementById("paymentStatusDisplay").value,
+                notes: document.getElementById("notes").value.trim(),
+                salesLedgerItem: items
+            };
+
+            if (!payload.customerId) {
+                showFormError("Please select a customer.");
+                return;
+            }
+
+            const btn = document.getElementById("submitBtn");
+            btn.disabled = true;
+            btn.textContent = "Creating…";
+
+            try {
+                const res = await fetch(SALES_LEDGER_API, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+
+                showFormSuccess("Invoice created successfully.");
+                setTimeout(() => { window.location.href = "sales-ledger-list.html"; }, 900);
+            } catch (err) {
+                showFormError(`Failed to create invoice: ${err.message}`);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Create Invoice";
+            }
+        }
+
+        // ---- Message helpers ----
+        function showFormError(msg) {
+            const el = document.getElementById("formError");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+        }
+        function showFormSuccess(msg) {
+            const el = document.getElementById("formSuccess");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+        }
+        function hideFormMessages() {
+            document.getElementById("formError").classList.add("hidden");
+            document.getElementById("formSuccess").classList.add("hidden");
+            document.getElementById("itemsError").classList.add("hidden");
+        }
+        function showItemsError(msg) {
+            const el = document.getElementById("itemsError");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+        }
+
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+    </script>
+
+</body>
+</html>

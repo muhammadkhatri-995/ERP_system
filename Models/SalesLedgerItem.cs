@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 namespace ERP_sys.Models
 {
     public class SalesLedgerItem
@@ -15,7 +16,10 @@ namespace ERP_sys.Models
 
 
         // Navigation property for SalesLedger
+        [ValidateNever]
         public SalesLedger SalesLedger { get; set; }
+        [ValidateNever]
+        public Products? Products { get; set; }
 
 
     }
