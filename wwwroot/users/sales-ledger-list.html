@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -8,217 +8,204 @@
 </head>
 <body class="bg-slate-50 min-h-screen">
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto px-4 py-8">-->
+<!-- Header -->
+<!--<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">-->
+<!-- Left Side: Title and Subtitle -->
+<!--<div>
+    <h1 class="text-2xl font-bold text-slate-800">Sales Ledger</h1>
+    <p class="text-sm text-slate-500">Manage all invoices</p>
+</div>-->
+<!-- Right Side: Action Buttons Grouped Together -->
+<!--<div class="flex items-center gap-3">
+        <a href="navbar.html" id="dashboardLink" class="flex items-center gap-2 bg-[#171c2e] hover:bg-[#20263c] text-white text-sm font-medium px-4 py-2.5 rounded-lg transition border border-slate-700">
+            <span>📊</span> Dashboard
+        </a>
 
-        <!-- Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <!-- Left Side: Title and Subtitle -->
+        <a href="ledger-add.html"
+           class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg shadow-sm transition whitespace-nowrap">
+            + New Invoice
+        </a>
+    </div>
+</div>-->
+<!-- Alerts -->
+<!--<div id="listError" class="hidden mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+<div id="listSuccess" class="hidden mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-4 py-3"></div>-->
+<!-- Search -->
+<!--<div class="mb-4">
+    <input type="text" id="searchInput" placeholder="Search by invoice no or customer..."
+           class="w-full sm:w-80 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+           oninput="filterInvoices()" />
+</div>-->
+<!-- Table -->
+<!--<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="bg-slate-100 text-slate-600 text-left">
+                <th class="py-3 px-4 font-semibold">Invoice No</th>
+                <th class="py-3 px-4 font-semibold">Customer</th>
+                <th class="py-3 px-4 font-semibold">Invoice Date</th>
+                <th class="py-3 px-4 font-semibold">Due Date</th>
+                <th class="py-3 px-4 font-semibold text-right">Grand Total</th>
+                <th class="py-3 px-4 font-semibold text-right">Balance</th>
+                <th class="py-3 px-4 font-semibold">Status</th>
+                <th class="py-3 px-4 font-semibold text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="invoicesBody">-->
+<!-- rows injected here -->
+<!--</tbody>
+        </table>
+
+        <div id="emptyState" class="hidden text-center text-slate-500 py-10">
+            No invoices found.
+        </div>
+        <div id="loadingState" class="text-center text-slate-400 py-10">
+            Loading invoices…
+        </div>
+    </div>
+
+</div>-->
+<!-- Delete Confirmation Modal -->
+<!--<div id="deleteModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm">
+        <h3 class="text-lg font-semibold text-slate-800 mb-2">Delete Invoice</h3>
+        <p class="text-sm text-slate-500 mb-5">
+            Are you sure you want to delete invoice <span id="deleteInvoiceNo" class="font-medium text-slate-700"></span>? This action cannot be undone.
+        </p>
+        <div class="flex justify-end gap-3">
+            <button onclick="closeDeleteModal()" class="px-4 py-2 text-sm rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
+                Cancel
+            </button>
+            <button id="confirmDeleteBtn" onclick="confirmDelete()" class="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700">
+                Delete
+            </button>
+        </div>
+    </div>
+</div>-->
+<!-- Edit Invoice Modal -->
+<!--<div id="editModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <h3 class="text-lg font-semibold text-slate-800">Edit Invoice</h3>
+            <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
+        </div>
+
+        <div id="editLoading" class="text-center text-slate-400 py-10">Loading invoice…</div>
+        <div id="editError" class="hidden mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+
+        <form id="editForm" onsubmit="submitEditInvoice(event)" class="hidden px-6 py-5 space-y-5">-->
+<!-- Top fields -->
+<!--<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Invoice No</label>
+        <input type="text" id="editInvoiceNo" readonly
+               class="w-full border border-slate-200 bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-600 cursor-not-allowed" />
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Customer</label>
+        <select id="editCustomerId" required
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <option value="">Loading customers…</option>
+        </select>
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Invoice Date</label>
+        <input type="date" id="editInvoiceDate" required
+               class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
+        <input type="date" id="editDueDate"
+               class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Paid Amount</label>
+        <input type="number" id="editPaidAmount" value="0" min="0" step="0.01" oninput="recalcEditTotals()"
+               class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Payment Status</label>
+        <input type="text" id="editPaymentStatusDisplay" readonly
+               class="w-full border border-slate-200 bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-600" />
+    </div>
+</div>-->
+<!-- Line Items -->
+<!--<div>
+    <div class="flex items-center justify-between mb-2">
+        <h4 class="text-sm font-semibold text-slate-700">Line Items</h4>
+        <button type="button" onclick="addEditItemRow()"
+                class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+            + Add Item
+        </button>
+    </div>
+
+    <div id="editItemsError" class="hidden mb-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-2"></div>
+
+    <div class="overflow-x-auto border border-slate-200 rounded-lg">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-slate-100 text-slate-600 text-left">
+                    <th class="py-2 px-2 font-semibold">Product</th>
+                    <th class="py-2 px-2 font-semibold">Qty</th>
+                    <th class="py-2 px-2 font-semibold">Unit Price</th>
+                    <th class="py-2 px-2 font-semibold">Discount</th>
+                    <th class="py-2 px-2 font-semibold">Tax</th>
+                    <th class="py-2 px-2 font-semibold text-right">Line Total</th>
+                    <th class="py-2 px-2 font-semibold text-center">Remove</th>
+                </tr>
+            </thead>
+            <tbody id="editItemsBody">-->
+<!-- rows injected here -->
+<!--</tbody>
+        </table>
+    </div>
+</div>-->
+<!-- Totals -->
+<!--<div class="flex justify-end">
+    <div class="w-full sm:w-80 space-y-2">
+        <div class="grid grid-cols-2 gap-3">
             <div>
-                <h1 class="text-2xl font-bold text-slate-800">Sales Ledger</h1>
-                <p class="text-sm text-slate-500">Manage all invoices</p>
+                <label class="block text-xs font-medium text-slate-500 mb-1">Header Discount</label>
+                <input type="number" id="editHeaderDiscount" value="0" min="0" step="0.01" oninput="recalcEditTotals()"
+                       class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
             </div>
-
-            <!-- Right Side: Action Buttons Grouped Together -->
-            <div class="flex items-center gap-3">
-                <a href="navbar.html" id="dashboardLink" class="flex items-center gap-2 bg-[#171c2e] hover:bg-[#20263c] text-white text-sm font-medium px-4 py-2.5 rounded-lg transition border border-slate-700">
-                    <span>📊</span> Dashboard
-                </a>
-
-                <a href="ledger-add.html"
-                   class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg shadow-sm transition whitespace-nowrap">
-                    + New Invoice
-                </a>
+            <div>
+                <label class="block text-xs font-medium text-slate-500 mb-1">Header Tax</label>
+                <input type="number" id="editHeaderTax" value="0" min="0" step="0.01" oninput="recalcEditTotals()"
+                       class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
             </div>
         </div>
 
-
-        <!-- Alerts -->
-        <div id="listError" class="hidden mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
-        <div id="listSuccess" class="hidden mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-4 py-3"></div>
-
-        <!-- Search -->
-        <div class="mb-4">
-            <input type="text" id="searchInput" placeholder="Search by invoice no or customer..."
-                   class="w-full sm:w-80 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                   oninput="filterInvoices()" />
-        </div>
-
-        <!-- Table -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
-            <table class="w-full text-sm">
-                <thead>
-                    <tr class="bg-slate-100 text-slate-600 text-left">
-                        <th class="py-3 px-4 font-semibold">Invoice No</th>
-                        <th class="py-3 px-4 font-semibold">Customer</th>
-                        <th class="py-3 px-4 font-semibold">Invoice Date</th>
-                        <th class="py-3 px-4 font-semibold">Due Date</th>
-                        <th class="py-3 px-4 font-semibold text-right">Grand Total</th>
-                        <th class="py-3 px-4 font-semibold text-right">Balance</th>
-                        <th class="py-3 px-4 font-semibold">Status</th>
-                        <th class="py-3 px-4 font-semibold text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="invoicesBody">
-                    <!-- rows injected here -->
-                </tbody>
-            </table>
-
-            <div id="emptyState" class="hidden text-center text-slate-500 py-10">
-                No invoices found.
+        <div class="border-t border-slate-200 pt-3 space-y-1.5 text-sm">
+            <div class="flex justify-between text-slate-600">
+                <span>Subtotal</span>
+                <span id="editSubtotalDisplay">0.00</span>
             </div>
-            <div id="loadingState" class="text-center text-slate-400 py-10">
-                Loading invoices…
+            <div class="flex justify-between text-slate-800 font-semibold text-base">
+                <span>Grand Total</span>
+                <span id="editGrandTotalDisplay">0.00</span>
             </div>
-        </div>
-
-    </div>
-
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-        <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm">
-            <h3 class="text-lg font-semibold text-slate-800 mb-2">Delete Invoice</h3>
-            <p class="text-sm text-slate-500 mb-5">
-                Are you sure you want to delete invoice <span id="deleteInvoiceNo" class="font-medium text-slate-700"></span>? This action cannot be undone.
-            </p>
-            <div class="flex justify-end gap-3">
-                <button onclick="closeDeleteModal()" class="px-4 py-2 text-sm rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
-                    Cancel
-                </button>
-                <button id="confirmDeleteBtn" onclick="confirmDelete()" class="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700">
-                    Delete
-                </button>
+            <div class="flex justify-between text-slate-600">
+                <span>Balance</span>
+                <span id="editBalanceDisplay">0.00</span>
             </div>
         </div>
     </div>
-
-    <!-- Edit Invoice Modal -->
-    <div id="editModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-                <h3 class="text-lg font-semibold text-slate-800">Edit Invoice</h3>
-                <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
-            </div>
-
-            <div id="editLoading" class="text-center text-slate-400 py-10">Loading invoice…</div>
-            <div id="editError" class="hidden mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
-
-            <form id="editForm" onsubmit="submitEditInvoice(event)" class="hidden px-6 py-5 space-y-5">
-
-                <!-- Top fields -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Invoice No</label>
-                        <input type="text" id="editInvoiceNo" readonly
-                               class="w-full border border-slate-200 bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-600 cursor-not-allowed" />
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Customer</label>
-                        <select id="editCustomerId" required
-                                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                            <option value="">Loading customers…</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Invoice Date</label>
-                        <input type="date" id="editInvoiceDate" required
-                               class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
-                        <input type="date" id="editDueDate"
-                               class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Paid Amount</label>
-                        <input type="number" id="editPaidAmount" value="0" min="0" step="0.01" oninput="recalcEditTotals()"
-                               class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Payment Status</label>
-                        <input type="text" id="editPaymentStatusDisplay" readonly
-                               class="w-full border border-slate-200 bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-600" />
-                    </div>
-                </div>
-
-                <!-- Line Items -->
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-sm font-semibold text-slate-700">Line Items</h4>
-                        <button type="button" onclick="addEditItemRow()"
-                                class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
-                            + Add Item
-                        </button>
-                    </div>
-
-                    <div id="editItemsError" class="hidden mb-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-2"></div>
-
-                    <div class="overflow-x-auto border border-slate-200 rounded-lg">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="bg-slate-100 text-slate-600 text-left">
-                                    <th class="py-2 px-2 font-semibold">Product</th>
-                                    <th class="py-2 px-2 font-semibold">Qty</th>
-                                    <th class="py-2 px-2 font-semibold">Unit Price</th>
-                                    <th class="py-2 px-2 font-semibold">Discount</th>
-                                    <th class="py-2 px-2 font-semibold">Tax</th>
-                                    <th class="py-2 px-2 font-semibold text-right">Line Total</th>
-                                    <th class="py-2 px-2 font-semibold text-center">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody id="editItemsBody">
-                                <!-- rows injected here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Totals -->
-                <div class="flex justify-end">
-                    <div class="w-full sm:w-80 space-y-2">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-xs font-medium text-slate-500 mb-1">Header Discount</label>
-                                <input type="number" id="editHeaderDiscount" value="0" min="0" step="0.01" oninput="recalcEditTotals()"
-                                       class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-slate-500 mb-1">Header Tax</label>
-                                <input type="number" id="editHeaderTax" value="0" min="0" step="0.01" oninput="recalcEditTotals()"
-                                       class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                            </div>
-                        </div>
-
-                        <div class="border-t border-slate-200 pt-3 space-y-1.5 text-sm">
-                            <div class="flex justify-between text-slate-600">
-                                <span>Subtotal</span>
-                                <span id="editSubtotalDisplay">0.00</span>
-                            </div>
-                            <div class="flex justify-between text-slate-800 font-semibold text-base">
-                                <span>Grand Total</span>
-                                <span id="editGrandTotalDisplay">0.00</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                                <span>Balance</span>
-                                <span id="editBalanceDisplay">0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Notes -->
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Notes</label>
-                    <textarea id="editNotes" rows="3"
-                              class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"></textarea>
-                </div>
-
-                <!-- Submit -->
-                <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
+</div>-->
+<!-- Notes -->
+<!--<div>
+    <label class="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+    <textarea id="editNotes" rows="3"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"></textarea>
+</div>-->
+<!-- Submit -->
+<!--<div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
                     <button type="button" onclick="closeEditModal()"
                             class="px-4 py-2.5 text-sm rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
                         Cancel
@@ -701,5 +688,844 @@
         }
     </script>
 
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales Ledger - Invoices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #invoicePrintArea, #invoicePrintArea * {
+                visibility: visible;
+            }
+
+            #invoicePrintArea {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-800">Sales Ledger</h1>
+                <p class="text-sm text-slate-500">Manage all invoices</p>
+            </div>
+            <a href="ledger-add.html"
+               class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg shadow-sm transition">
+                + New Invoice
+            </a>
+        </div>
+
+        <div id="listError" class="hidden mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+        <div id="listSuccess" class="hidden mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-4 py-3"></div>
+
+        <div class="mb-4">
+            <input type="text" id="searchInput" placeholder="Search by invoice no or customer..."
+                   class="w-full sm:w-80 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                   oninput="filterInvoices()" />
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="bg-slate-100 text-slate-600 text-left">
+                        <th class="py-3 px-4 font-semibold">Invoice No</th>
+                        <th class="py-3 px-4 font-semibold">Customer</th>
+                        <th class="py-3 px-4 font-semibold">Invoice Date</th>
+                        <th class="py-3 px-4 font-semibold">Due Date</th>
+                        <th class="py-3 px-4 font-semibold text-right">Grand Total</th>
+                        <th class="py-3 px-4 font-semibold text-right">Balance Due</th>
+                        <th class="py-3 px-4 font-semibold">Payment Status</th>
+                        <th class="py-3 px-4 font-semibold text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="invoicesBody">
+                </tbody>
+            </table>
+
+            <div id="emptyState" class="hidden text-center text-slate-500 py-10">
+                No invoices found.
+            </div>
+            <div id="loadingState" class="text-center text-slate-400 py-10">
+                Loading invoices…
+            </div>
+        </div>
+
+    </div>
+
+    <div id="deleteModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm">
+            <h3 class="text-lg font-semibold text-slate-800 mb-2">Delete Invoice</h3>
+            <p class="text-sm text-slate-500 mb-5">
+                Are you sure you want to delete invoice <span id="deleteInvoiceNo" class="font-medium text-slate-700"></span>? This action cannot be undone.
+            </p>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeDeleteModal()" class="px-4 py-2 text-sm rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
+                    Cancel
+                </button>
+                <button id="confirmDeleteBtn" onclick="confirmDelete()" class="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewInvoiceModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[92vh] overflow-y-auto">
+
+            <div class="no-print flex items-center justify-between px-6 py-3 border-b border-slate-200 bg-slate-50 rounded-t-xl sticky top-0 z-10">
+                <h3 class="text-sm font-semibold text-slate-600">Invoice Preview</h3>
+                <div class="flex items-center gap-2">
+                    <button onclick="printInvoice()"
+                            class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                            <rect x="6" y="14" width="12" height="8"></rect>
+                        </svg>
+                        Print / Save PDF
+                    </button>
+                    <button onclick="closeViewInvoiceModal()" class="text-slate-400 hover:text-slate-600 text-xl leading-none px-2">&times;</button>
+                </div>
+            </div>
+
+            <div id="viewInvoiceLoading" class="text-center text-slate-400 py-16">Loading invoice…</div>
+            <div id="viewInvoiceError" class="hidden mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+
+            <div id="invoicePrintArea" class="hidden p-10">
+
+                <div class="flex items-start justify-between pb-6 border-b-2 border-slate-800">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-11 h-11 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg">E</div>
+                            <div>
+                                <p class="text-xl font-bold text-slate-900 leading-tight">ERP System Pvt Ltd</p>
+                                <p class="text-xs text-slate-500">Enterprise Resource Planning</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3 leading-relaxed">
+                            123 Business Avenue, Jamshoro, Sindh, Pakistan<br />
+                            billing@erpsystem.com &nbsp;•&nbsp; +92 300 1234567
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">INVOICE</h1>
+                        <p class="text-sm text-slate-500 mt-1"># <span id="pv_invoiceNo" class="font-semibold text-slate-700"></span></p>
+                        <div class="mt-3" id="pv_statusBadge"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 py-6">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Billed To</p>
+                        <p class="text-base font-semibold text-slate-800" id="pv_customerName"></p>
+                    </div>
+                    <div class="text-right">
+                        <div class="inline-block text-left">
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
+                                <span class="text-slate-400">Invoice Date</span>
+                                <span class="font-medium text-slate-700" id="pv_invoiceDate"></span>
+                                <span class="text-slate-400">Due Date</span>
+                                <span class="font-medium text-slate-700" id="pv_dueDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="w-full text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800 text-white text-left">
+                            <th class="py-2.5 px-3 font-semibold rounded-l-lg">#</th>
+                            <th class="py-2.5 px-3 font-semibold">Product</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Qty</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Unit Price</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Discount</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Tax</th>
+                            <th class="py-2.5 px-3 font-semibold text-right rounded-r-lg">Line Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pv_itemsBody">
+                    </tbody>
+                </table>
+
+                <div class="flex justify-end mt-6">
+                    <div class="w-72 space-y-2 text-sm">
+                        <div class="flex justify-between text-slate-500">
+                            <span>Subtotal</span>
+                            <span id="pv_subtotal" class="text-slate-700 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between text-slate-500">
+                            <span>Discount</span>
+                            <span id="pv_discount" class="text-slate-700 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between text-slate-500">
+                            <span>Tax</span>
+                            <span id="pv_tax" class="text-slate-700 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between pt-2 border-t-2 border-slate-800 text-base font-bold text-slate-900">
+                            <span>Grand Total</span>
+                            <span id="pv_grandTotal"></span>
+                        </div>
+                        <div class="flex justify-between text-slate-500 pt-1">
+                            <span>Paid Amount</span>
+                            <span id="pv_paid" class="text-green-600 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-slate-800">
+                            <span>Balance Due</span>
+                            <span id="pv_balance"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pv_notesWrap" class="hidden mt-8 pt-5 border-t border-slate-200">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Notes</p>
+                    <p class="text-sm text-slate-600" id="pv_notes"></p>
+                </div>
+
+                <div class="mt-10 pt-5 border-t border-slate-200 text-center">
+                    <p class="text-xs text-slate-400">Thank you for your business.</p>
+                    <p class="text-xs text-slate-300 mt-1">This is a computer-generated invoice.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="editInvoiceModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-y-auto flex flex-col">
+
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50 rounded-t-xl sticky top-0 z-10">
+                <h3 class="text-lg font-bold text-slate-800">Edit Sales Invoice</h3>
+                <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 text-2xl leading-none px-2">&times;</button>
+            </div>
+
+            <div id="editLoading" class="text-center text-slate-400 py-16">Loading invoice details...</div>
+            <div id="editError" class="hidden mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+
+            <form id="editForm" class="hidden p-6 space-y-6 flex-1" onsubmit="submitEditInvoice(event)">
+
+                <div class="border border-slate-200 rounded-xl p-5 bg-white shadow-sm space-y-4">
+                    <h4 class="text-sm font-bold text-slate-700 mb-2">Invoice Details</h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Invoice No <span class="text-red-500">*</span></label>
+                            <input type="text" id="editInvoiceNo" placeholder="INV-2026-0001" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-500 outline-none cursor-not-allowed" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Customer <span class="text-red-500">*</span></label>
+                            <select id="editCustomerId" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none"></select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Invoice Date <span class="text-red-500">*</span></label>
+                            <input type="date" id="editInvoiceDate" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Due Date</label>
+                            <input type="date" id="editDueDate" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Paid Amount</label>
+                            <input type="number" id="editPaidAmount" min="0" step="0.01" value="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none" oninput="recalcEditTotals()" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Payment Status</label>
+                            <input type="text" id="editPaymentStatusDisplay" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-500 font-medium outline-none pointer-events-none" value="unpaid" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Notes</label>
+                        <textarea id="editNotes" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none resize-none" placeholder="Enter notes here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl p-5 bg-white shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="text-sm font-bold text-slate-700">Line Items</h4>
+                        <button type="button" onclick="addEditItemRow()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1">
+                            + Add Item
+                        </button>
+                    </div>
+                    <div id="editItemsError" class="hidden mb-3 text-xs text-red-600 bg-red-50 p-2 rounded border border-red-200"></div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                                    <th class="pb-2 w-5/12">Product</th>
+                                    <th class="pb-2 w-20 text-center">Qty</th>
+                                    <th class="pb-2 w-28 text-center">Unit Price</th>
+                                    <th class="pb-2 w-24 text-center">Discount</th>
+                                    <th class="pb-2 w-24 text-center">Tax</th>
+                                    <th class="pb-2 w-28 text-right">Line Total</th>
+                                    <th class="pb-2 w-10 text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="editItemsBody" class="divide-y divide-slate-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div></div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-3 text-sm ml-auto w-full max-w-md">
+                        <div class="flex justify-between items-center text-slate-600">
+                            <span class="font-medium">Subtotal</span>
+                            <span class="font-semibold text-slate-800 font-mono" id="editSubtotalDisplay">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-600 gap-4">
+                            <span class="font-medium">Discount</span>
+                            <input type="number" id="editHeaderDiscount" min="0" step="0.01" value="0" class="w-24 border border-slate-300 rounded-md px-2 py-1 text-right text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400" oninput="recalcEditTotals()" />
+                        </div>
+                        <div class="flex justify-between items-center text-slate-600 gap-4">
+                            <span class="font-medium">Tax</span>
+                            <input type="number" id="editHeaderTax" min="0" step="0.01" value="0" class="w-24 border border-slate-300 rounded-md px-2 py-1 text-right text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400" oninput="recalcEditTotals()" />
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-200 font-bold text-slate-800">
+                            <span>Grand Total</span>
+                            <span class="font-bold text-slate-900 font-mono" id="editGrandTotalDisplay">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-600">
+                            <span class="font-medium">Balance Due</span>
+                            <span class="font-bold font-mono text-slate-900" id="editBalanceDisplay">0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-50">Cancel</button>
+                    <button type="submit" id="editSubmitBtn" class="px-5 py-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition">Update Invoice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const CUSTOMER_API = "/api/Customer";
+        const PRODUCT_API = "/api/Product";
+        const SALES_LEDGER_API = "/api/SalesLedger";
+
+        let invoices = [];
+        let editProducts = [];
+        let invoiceToDeleteId = null;
+        let currentEditInvoiceId = null;
+        let editItemRowCount = 0;
+
+        document.addEventListener("DOMContentLoaded", loadInvoices);
+
+        // ================== DATA HANDLING LOOPS ==================
+
+        async function loadInvoices() {
+            showLoading(true);
+            hideMessages();
+            try {
+                const res = await fetch(SALES_LEDGER_API);
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+                invoices = await res.json();
+                renderInvoices(invoices);
+            } catch (err) {
+                showListError(`Failed to load invoices: ${err.message}`);
+                renderInvoices([]);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function renderInvoices(list) {
+            const tbody = document.getElementById("invoicesBody");
+            const emptyState = document.getElementById("emptyState");
+
+            if (!list || list.length === 0) {
+                tbody.innerHTML = "";
+                emptyState.classList.remove("hidden");
+                return;
+            }
+
+            emptyState.classList.add("hidden");
+
+            tbody.innerHTML = list.map(inv => `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50">
+                        <td class="py-3 px-4 font-medium text-slate-800">${escapeHtml(inv.invoiceNo)}</td>
+                        <td class="py-3 px-4 text-slate-600">${escapeHtml(inv.customerName)}</td>
+                        <td class="py-3 px-4 text-slate-600">${formatDate(inv.invoiceDate)}</td>
+                        <td class="py-3 px-4 text-slate-600">${inv.dueDate ? formatDate(inv.dueDate) : "—"}</td>
+                        <td class="py-3 px-4 text-right text-slate-800">${formatCurrency(inv.grandTotal)}</td>
+                        <td class="py-3 px-4 text-right text-slate-800">${formatCurrency(inv.balance)}</td>
+                        <td class="py-3 px-4">${statusBadge(inv.paymentStatus)}</td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center justify-center gap-2">
+                                <button onclick="viewInvoice(${inv.id})"
+                                    class="px-3 py-1.5 text-xs rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100">
+                                    View Invoice
+                                </button>
+                                <button onclick="editInvoice(${inv.id})"
+                                    class="px-3 py-1.5 text-xs rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-50">
+                                    Edit
+                                </button>
+                                <button onclick="openDeleteModal(${inv.id}, '${escapeHtml(inv.invoiceNo)}')"
+                                    class="px-3 py-1.5 text-xs rounded-lg border border-red-300 text-red-600 hover:bg-red-50">
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join("");
+        }
+
+        // ================== PREVIEW CONTEXT MODULE ==================
+
+        async function viewInvoice(id) {
+            openViewInvoiceModal();
+            document.getElementById("viewInvoiceLoading").classList.remove("hidden");
+            document.getElementById("invoicePrintArea").classList.add("hidden");
+            document.getElementById("viewInvoiceError").classList.add("hidden");
+
+            try {
+                const res = await fetch(`${SALES_LEDGER_API}/${id}`);
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+                const invoice = await res.json();
+
+                populateInvoicePreview(invoice);
+
+                document.getElementById("viewInvoiceLoading").classList.add("hidden");
+                document.getElementById("invoicePrintArea").classList.remove("hidden");
+            } catch (err) {
+                document.getElementById("viewInvoiceLoading").classList.add("hidden");
+                const el = document.getElementById("viewInvoiceError");
+                el.textContent = `Failed to load invoice: ${err.message}`;
+                el.classList.remove("hidden");
+            }
+        }
+
+        function populateInvoicePreview(invoice) {
+            document.getElementById("pv_invoiceNo").textContent = invoice.invoiceNo || "—";
+            document.getElementById("pv_customerName").textContent = invoice.customerName || "—";
+            document.getElementById("pv_invoiceDate").textContent = formatDate(invoice.invoiceDate);
+            document.getElementById("pv_dueDate").textContent = invoice.dueDate ? formatDate(invoice.dueDate) : "—";
+
+            document.getElementById("pv_statusBadge").innerHTML = statusBadge(invoice.paymentStatus);
+
+            const items = invoice.salesLedgerItem || invoice.SalesLedgerItem || [];
+            const itemsBody = document.getElementById("pv_itemsBody");
+
+            if (items.length === 0) {
+                itemsBody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400 text-sm">No line items.</td></tr>`;
+            } else {
+                itemsBody.innerHTML = items.map((item, idx) => `
+                        <tr class="border-b border-slate-100 ${idx % 2 === 1 ? 'bg-slate-50/60' : ''}">
+                            <td class="py-2.5 px-3 text-slate-500">${idx + 1}</td>
+                            <td class="py-2.5 px-3 text-slate-800 font-medium">${escapeHtml(item.productName || `Product #${item.productId}`)}</td>
+                            <td class="py-2.5 px-3 text-right text-slate-600">${item.quantity}</td>
+                            <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.unitPrice)}</td>
+                            <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.discount)}</td>
+                            <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.tax)}</td>
+                            <td class="py-2.5 px-3 text-right font-semibold text-slate-800">${formatCurrency(item.lineTotal)}</td>
+                        </tr>
+                    `).join("");
+            }
+
+            document.getElementById("pv_subtotal").textContent = formatCurrency(invoice.subtotal);
+            document.getElementById("pv_discount").textContent = `- ${formatCurrency(invoice.discount)}`;
+            document.getElementById("pv_tax").textContent = `+ ${formatCurrency(invoice.tax)}`;
+            document.getElementById("pv_grandTotal").textContent = formatCurrency(invoice.grandTotal);
+            document.getElementById("pv_paid").textContent = formatCurrency(invoice.paidAmount);
+            document.getElementById("pv_balance").textContent = formatCurrency(invoice.balance);
+
+            const notesWrap = document.getElementById("pv_notesWrap");
+            if (invoice.notes && invoice.notes.trim() !== "") {
+                document.getElementById("pv_notes").textContent = invoice.notes;
+                notesWrap.classList.remove("hidden");
+            } else {
+                notesWrap.classList.add("hidden");
+            }
+        }
+
+        function openViewInvoiceModal() { document.getElementById("viewInvoiceModal").classList.remove("hidden"); }
+        function closeViewInvoiceModal() { document.getElementById("viewInvoiceModal").classList.add("hidden"); }
+        function printInvoice() { window.print(); }
+
+        // ================== EDIT INVOICE LOGIC ENGINE ==================
+
+        async function editInvoice(id) {
+            currentEditInvoiceId = id;
+            openEditModal();
+
+            document.getElementById("editLoading").classList.remove("hidden");
+            document.getElementById("editForm").classList.add("hidden");
+            document.getElementById("editError").classList.add("hidden");
+            document.getElementById("editItemsBody").innerHTML = "";
+            editItemRowCount = 0;
+
+            try {
+                const [invoiceRes, customersLoaded, productsLoaded] = await Promise.all([
+                    fetch(`${SALES_LEDGER_API}/${id}`),
+                    loadEditCustomers(),
+                    loadEditProducts()
+                ]);
+
+                if (!invoiceRes.ok) throw new Error(`Server returned status code: ${invoiceRes.status}`);
+                const invoice = await invoiceRes.json();
+
+                populateEditForm(invoice);
+
+                document.getElementById("editLoading").classList.add("hidden");
+                document.getElementById("editForm").classList.remove("hidden");
+            } catch (err) {
+                document.getElementById("editLoading").classList.add("hidden");
+                const el = document.getElementById("editError");
+                el.textContent = `Failed to load invoice records: ${err.message}`;
+                el.classList.remove("hidden");
+            }
+        }
+
+        async function loadEditCustomers() {
+            const select = document.getElementById("editCustomerId");
+            try {
+                const res = await fetch(CUSTOMER_API);
+                if (!res.ok) throw new Error(`Status ${res.status}`);
+                const customers = await res.json();
+                select.innerHTML = `<option value="">Select a customer...</option>` +
+                    customers.map(c => `<option value="${c.id}" data-name="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join("");
+            } catch (err) {
+                select.innerHTML = `<option value="">Select a customer...</option>`;
+            }
+        }
+
+        async function loadEditProducts() {
+            try {
+                const res = await fetch(PRODUCT_API);
+                if (!res.ok) throw new Error(`Status ${res.status}`);
+                editProducts = await res.json();
+            } catch (err) {
+                editProducts = [];
+            }
+        }
+
+        function populateEditForm(invoice) {
+            document.getElementById("editInvoiceNo").value = invoice.invoiceNo || "";
+            document.getElementById("editCustomerId").value = invoice.customerId || "";
+            document.getElementById("editInvoiceDate").value = invoice.invoiceDate ? invoice.invoiceDate.split("T")[0] : "";
+            document.getElementById("editDueDate").value = invoice.dueDate ? invoice.dueDate.split("T")[0] : "";
+            document.getElementById("editPaidAmount").value = invoice.paidAmount || 0;
+            document.getElementById("editHeaderDiscount").value = invoice.discount || 0;
+            document.getElementById("editHeaderTax").value = invoice.tax || 0;
+            document.getElementById("editNotes").value = invoice.notes || "";
+
+            const items = invoice.salesLedgerItem || invoice.SalesLedgerItem || [];
+            document.getElementById("editItemsBody").innerHTML = "";
+
+            if (items.length > 0) {
+                items.forEach(item => addEditItemRow(item));
+            } else {
+                addEditItemRow();
+            }
+            recalcEditTotals();
+        }
+
+        function addEditItemRow(existingItem = null) {
+            editItemRowCount++;
+            const rowId = `edit-item-${editItemRowCount}`;
+
+            const productOptions = `<option value="">Select product..</option>` +
+                editProducts.map(p => `<option value="${p.id}" data-price="${p.price ?? 0}">${escapeHtml(p.name)}</option>`).join("");
+
+            const row = document.createElement("tr");
+            row.id = rowId;
+            row.className = "hover:bg-slate-50/50";
+            row.innerHTML = `
+                    <td class="py-2 pr-2">
+                        <select class="item-product w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 bg-white" onchange="onEditProductChange('${rowId}')">
+                            ${productOptions}
+                        </select>
+                    </td>
+                    <td class="py-2 px-1">
+                        <input type="number" class="item-qty w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm text-center focus:outline-none focus:ring-1 focus:ring-indigo-400" value="${existingItem?.quantity ?? 1}" min="1" oninput="recalcEditTotals()" />
+                    </td>
+                    <td class="py-2 px-1">
+                        <input type="number" class="item-price w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm text-center focus:outline-none focus:ring-1 focus:ring-indigo-400" value="${existingItem?.unitPrice ?? 0}" min="0" step="0.01" oninput="recalcEditTotals()" />
+                    </td>
+                    <td class="py-2 px-1">
+                        <input type="number" class="item-discount w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm text-center focus:outline-none focus:ring-1 focus:ring-indigo-400" value="${existingItem?.discount ?? 0}" min="0" step="0.01" oninput="recalcEditTotals()" />
+                    </td>
+                    <td class="py-2 px-1">
+                        <input type="number" class="item-tax w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm text-center focus:outline-none focus:ring-1 focus:ring-indigo-400" value="${existingItem?.tax ?? 0}" min="0" step="0.01" oninput="recalcEditTotals()" />
+                    </td>
+                    <td class="py-2 px-2 text-right font-medium text-slate-700 item-line-total font-mono">0.00</td>
+                    <td class="py-2 pl-2 text-center">
+                        <button type="button" onclick="removeEditItemRow('${rowId}')" class="text-red-500 hover:text-red-700 text-sm font-bold">✕</button>
+                    </td>
+                `;
+            document.getElementById("editItemsBody").appendChild(row);
+
+            if (existingItem?.productId) {
+                row.querySelector(".item-product").value = existingItem.productId;
+            }
+            recalcEditTotals();
+        }
+
+        function removeEditItemRow(rowId) {
+            const rows = document.querySelectorAll("#editItemsBody tr");
+            if (rows.length <= 1) {
+                showEditItemsError("An invoice needs at least one line item.");
+                return;
+            }
+            document.getElementById(rowId).remove();
+            recalcEditTotals();
+        }
+
+        function onEditProductChange(rowId) {
+            const row = document.getElementById(rowId);
+            const select = row.querySelector(".item-product");
+            const priceInput = row.querySelector(".item-price");
+            const selectedOption = select.options[select.selectedIndex];
+            const catalogPrice = selectedOption ? selectedOption.getAttribute("data-price") : null;
+
+            if (catalogPrice !== null && catalogPrice !== "") {
+                priceInput.value = parseFloat(catalogPrice);
+            }
+            recalcEditTotals();
+        }
+
+        function recalcEditTotals() {
+            let subtotal = 0;
+
+            document.querySelectorAll("#editItemsBody tr").forEach(row => {
+                const qty = parseFloat(row.querySelector(".item-qty").value) || 0;
+                const price = parseFloat(row.querySelector(".item-price").value) || 0;
+                const discount = parseFloat(row.querySelector(".item-discount").value) || 0;
+                const tax = parseFloat(row.querySelector(".item-tax").value) || 0;
+
+                const lineTotal = (qty * price) - discount + tax;
+                row.querySelector(".item-line-total").textContent = lineTotal.toFixed(2);
+
+                subtotal += lineTotal;
+            });
+
+            const headerDiscount = parseFloat(document.getElementById("editHeaderDiscount").value) || 0;
+            const headerTax = parseFloat(document.getElementById("editHeaderTax").value) || 0;
+            const paidAmount = parseFloat(document.getElementById("editPaidAmount").value) || 0;
+
+            const grandTotal = subtotal - headerDiscount + headerTax;
+            const balance = grandTotal - paidAmount;
+
+            document.getElementById("editSubtotalDisplay").textContent = subtotal.toFixed(2);
+            document.getElementById("editGrandTotalDisplay").textContent = grandTotal.toFixed(2);
+            document.getElementById("editBalanceDisplay").textContent = balance.toFixed(2);
+
+            let status = "unpaid";
+            if (paidAmount <= 0) status = "unpaid";
+            else if (paidAmount >= grandTotal && grandTotal > 0) status = "paid";
+            else status = "partial";
+
+            document.getElementById("editPaymentStatusDisplay").value = status;
+        }
+
+        async function submitEditInvoice(event) {
+            event.preventDefault();
+            document.getElementById("editError").classList.add("hidden");
+            document.getElementById("editItemsError").classList.add("hidden");
+
+            const customerSelect = document.getElementById("editCustomerId");
+            const customerName = customerSelect.options[customerSelect.selectedIndex]?.getAttribute("data-name") || "";
+
+            const items = [];
+            let hasInvalidItem = false;
+
+            document.querySelectorAll("#editItemsBody tr").forEach(row => {
+                const productId = row.querySelector(".item-product").value;
+                const qty = parseFloat(row.querySelector(".item-qty").value) || 0;
+                const price = parseFloat(row.querySelector(".item-price").value) || 0;
+                const discount = parseFloat(row.querySelector(".item-discount").value) || 0;
+                const tax = parseFloat(row.querySelector(".item-tax").value) || 0;
+                const lineTotal = parseFloat(row.querySelector(".item-line-total").textContent) || 0;
+
+                if (!productId || qty <= 0) {
+                    hasInvalidItem = true;
+                    return;
+                }
+
+                items.push({
+                    productId: Number(productId),
+                    quantity: qty,
+                    unitPrice: price,
+                    discount: discount,
+                    tax: tax,
+                    lineTotal: lineTotal
+                });
+            });
+
+            if (hasInvalidItem || items.length === 0) {
+                showEditItemsError("Every line item needs a product selected and a quantity greater than 0.");
+                return;
+            }
+
+            const payload = {
+                id: currentEditInvoiceId,
+                invoiceNo: document.getElementById("editInvoiceNo").value,
+                customerId: Number(document.getElementById("editCustomerId").value),
+                customerName: customerName,
+                invoiceDate: document.getElementById("editInvoiceDate").value,
+                dueDate: document.getElementById("editDueDate").value || null,
+                subtotal: parseFloat(document.getElementById("editSubtotalDisplay").textContent),
+                discount: parseFloat(document.getElementById("editHeaderDiscount").value) || 0,
+                tax: parseFloat(document.getElementById("editHeaderTax").value) || 0,
+                grandTotal: parseFloat(document.getElementById("editGrandTotalDisplay").textContent),
+                paidAmount: parseFloat(document.getElementById("editPaidAmount").value) || 0,
+                balance: parseFloat(document.getElementById("editBalanceDisplay").textContent),
+                paymentStatus: document.getElementById("editPaymentStatusDisplay").value,
+                notes: document.getElementById("editNotes").value.trim(),
+                salesLedgerItem: items
+            };
+
+            if (!payload.customerId) {
+                const el = document.getElementById("editError");
+                el.textContent = "Please select a customer record.";
+                el.classList.remove("hidden");
+                return;
+            }
+
+            const btn = document.getElementById("editSubmitBtn");
+            btn.disabled = true;
+            btn.textContent = "Updating...";
+
+            try {
+                const res = await fetch(`${SALES_LEDGER_API}/${currentEditInvoiceId}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) throw new Error(`Server returned status code ${res.status}`);
+
+                closeEditModal();
+                showListSuccess(`Invoice #${payload.invoiceNo} updated successfully!`);
+                await loadInvoices();
+            } catch (err) {
+                const el = document.getElementById("editError");
+                el.textContent = `Failed to update invoice: ${err.message}`;
+                el.classList.remove("hidden");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Update Invoice";
+            }
+        }
+
+        // ================== GENERAL HELPERS AND UTILITIES ==================
+
+        function openEditModal() { document.getElementById("editInvoiceModal").classList.remove("hidden"); }
+        function closeEditModal() { document.getElementById("editInvoiceModal").classList.add("hidden"); }
+
+        function showEditItemsError(msg) {
+            const el = document.getElementById("editItemsError");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+        }
+
+        function showListSuccess(msg) {
+            const el = document.getElementById("listSuccess");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+            setTimeout(() => el.classList.add("hidden"), 4000);
+        }
+
+        function showListError(msg) {
+            const el = document.getElementById("listError");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+        }
+
+        function showLoading(isLoading) {
+            document.getElementById("loadingState").className = isLoading ? "text-center text-slate-400 py-10" : "hidden";
+        }
+
+        function hideMessages() {
+            document.getElementById("listError").classList.add("hidden");
+            document.getElementById("listSuccess").classList.add("hidden");
+        }
+
+        function filterInvoices() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const filtered = invoices.filter(inv =>
+                (inv.invoiceNo && inv.invoiceNo.toLowerCase().includes(query)) ||
+                (inv.customerName && inv.customerName.toLowerCase().includes(query))
+            );
+            renderInvoices(filtered);
+        }
+
+        /********* Formatting Adjustments *********/
+        function escapeHtml(str) {
+            if (!str) return "";
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return "—";
+            return new Date(dateStr).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' });
+        }
+
+        // Modified currency handling to format matching standard clean decimal displays from screen
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(val || 0);
+        }
+
+        function statusBadge(status) {
+            status = status ? status.toLowerCase() : "unpaid";
+            if (status === "paid") return `<span class="px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-md">Paid</span>`;
+            if (status === "partial") return `<span class="px-2 py-1 text-xs font-semibold bg-amber-100 text-amber-700 rounded-md">Partial</span>`;
+            return `<span class="px-2 py-1 text-xs font-semibold bg-red-100 text-red-700 rounded-md">Unpaid</span>`;
+        }
+
+        // ================== DELETE TRANSACTION CONTEXTS ==================
+
+        function openDeleteModal(id, no) {
+            invoiceToDeleteId = id;
+            document.getElementById("deleteInvoiceNo").textContent = no;
+            document.getElementById("deleteModal").classList.remove("hidden");
+        }
+
+        function closeDeleteModal() {
+            document.getElementById("deleteModal").classList.add("hidden");
+        }
+
+        async function confirmDelete() {
+            if (!invoiceToDeleteId) return;
+            try {
+                const res = await fetch(`${SALES_LEDGER_API}/${invoiceToDeleteId}`, { method: "DELETE" });
+                if (!res.ok) throw new Error();
+                showListSuccess("Ledger record entry deleted successfully.");
+                loadInvoices();
+            } catch {
+                showListError("Could not drop reference entity target via API validation rules.");
+            } finally {
+                closeDeleteModal();
+            }
+        }
+    </script>
 </body>
 </html>

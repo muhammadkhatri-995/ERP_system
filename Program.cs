@@ -18,6 +18,7 @@ builder.Services.AddScoped<ERP_sys.Repositories.UserRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISalesLedgerRepository, SalesLedgerRepository>();
+builder.Services.AddScoped<ICustomerLedgerRepository, CustomerLedgerRepository>();
 
 
 
