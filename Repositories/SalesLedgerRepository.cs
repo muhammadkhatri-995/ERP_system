@@ -17,7 +17,6 @@ namespace ERP_sys.Repositories
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        // Implement the CreateInvoiceAsync method
         public async Task<int> CreateInvoiceAsync(SalesLedger ledger)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -57,8 +56,6 @@ namespace ERP_sys.Repositories
                     newLedgerId = (int)await cmd.ExecuteScalarAsync();
                 }
 
-                // Fixed: was "ledger.SalesLedgerItem" (property doesn't exist on the model).
-                // The collection of line items on SalesLedger is called "Items".
                 foreach (var item in ledger.SalesLedgerItem)
                 {
                     using var itemCmd = new SqlCommand(@"
@@ -89,7 +86,6 @@ namespace ERP_sys.Repositories
             }
         }
 
-        // Implement the GetInvoiceByIdAsync method
         public async Task<SalesLedger> GetInvoiceByIdAsync(int id)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -190,6 +186,7 @@ namespace ERP_sys.Repositories
                     CustomerId = (int)reader["CustomerId"],
                     CustomerName = reader["CustomerName"].ToString(),
                     InvoiceDate = (DateTime)reader["InvoiceDate"],
+                    DueDate = (DateTime?)reader["DueDate"],
                     GrandTotal = (decimal)reader["GrandTotal"],
                     PaidAmount = (decimal)reader["PaidAmount"],
                     Balance = (decimal)reader["Balance"],
@@ -209,7 +206,6 @@ namespace ERP_sys.Repositories
 
             try
             {
-                // Update Invoice Header
                 using (var cmd = new SqlCommand(@"
                     UPDATE SalesLedger
                     SET
@@ -249,7 +245,6 @@ namespace ERP_sys.Repositories
                     await cmd.ExecuteNonQueryAsync();
                 }
 
-                // Delete old items
                 using (var cmd = new SqlCommand(
                     "DELETE FROM SalesLedgerItems WHERE SalesLedgerId = @Id",
                     connection, transaction))
@@ -257,9 +252,7 @@ namespace ERP_sys.Repositories
                     cmd.Parameters.AddWithValue("@Id", ledger.Id);
                     await cmd.ExecuteNonQueryAsync();
                 }
-
-                // Insert updated items
-                // Fixed: was "ledger.SalesLedgerItem" — corrected to "ledger.SalesLedgerItem"
+                
                 foreach (var item in ledger.SalesLedgerItem)
                 {
                     using var cmd = new SqlCommand(@"

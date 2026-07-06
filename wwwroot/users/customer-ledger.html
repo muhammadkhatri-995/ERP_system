@@ -39,7 +39,7 @@
 </head>
 <body class="bg-slate-50 min-h-screen">
 
-    <!--<div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto px-4 py-8">
 
         <div class="flex items-center justify-between mb-6">
             <div>
@@ -47,601 +47,568 @@
                 <p class="text-sm text-slate-500">View customer transaction history and outstanding balance</p>
             </div>
         </div>
-        <button onclick="window.location.href='navbar.html'"
-                class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow">
-            <i class="fa-solid fa-chart-pie text-xs"></i> <span>Dashboard</span>
-        </button>
 
-        <div id="pageError" class="hidden mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>-->
-    <body class="bg-slate-50 min-h-screen">
+        <div id="pageError" class="hidden mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
 
-        <!-- Navbar -->
-        <nav class="bg-[#171c3a] shadow-lg">
-            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-
-                <!-- Left Side -->
+        <!-- ================= FILTER SECTION ================= -->
+        <div class="no-print bg-white rounded-xl shadow-sm border border-slate-200 p-5 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">
-                        Customer Ledger
-                    </h1>
-                    <p class="text-sm text-gray-300">
-                        View customer transaction history and outstanding balance
-                    </p>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Customer</label>
+                    <select id="filterCustomerId" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <option value="">Loading customers…</option>
+                    </select>
                 </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">From Date</label>
+                    <input type="date" id="filterFromDate" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">To Date</label>
+                    <input type="date" id="filterToDate" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Payment Status</label>
+                    <select id="filterPaymentStatus" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <option value="All">All</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Partial">Partial</option>
+                        <option value="Unpaid">Unpaid</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Invoice No</label>
+                    <input type="text" id="filterInvoiceNo" placeholder="Search invoice…" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                </div>
+            </div>
 
-                <!-- Right Side -->
-                <button onclick="window.location.href='navbar.html'"
-                        class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow transition duration-200">
-                    Dashboard
+            <div class="flex flex-wrap items-center gap-3 mt-4">
+                <button onclick="loadLedger()" class="px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm">
+                    Show
                 </button>
-
-            </div>
-        </nav>
-
-        <!-- Main Content -->
-        <div class="max-w-7xl mx-auto px-4 py-8">
-
-            <!-- Your remaining content starts here -->
-            <!-- ================= FILTER SECTION ================= -->
-            <div class="no-print bg-white rounded-xl shadow-sm border border-slate-200 p-5 mb-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Customer</label>
-                        <select id="filterCustomerId" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                            <option value="">Loading customers…</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">From Date</label>
-                        <input type="date" id="filterFromDate" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">To Date</label>
-                        <input type="date" id="filterToDate" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Payment Status</label>
-                        <select id="filterPaymentStatus" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                            <option value="All">All</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Partial">Partial</option>
-                            <option value="Unpaid">Unpaid</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Invoice No</label>
-                        <input type="text" id="filterInvoiceNo" placeholder="Search invoice…" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-3 mt-4">
-                    <button onclick="loadLedger()" class="px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm">
-                        Show
-                    </button>
-                    <button onclick="resetFilters()" class="px-4 py-2 text-sm font-medium rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
-                        Reset
-                    </button>
-                    <div class="flex-1"></div>
-                    <button onclick="exportPDF()" class="px-4 py-2 text-sm font-medium rounded-lg border border-red-300 text-red-600 hover:bg-red-50">
-                        Export PDF
-                    </button>
-                    <button onclick="exportExcel()" class="px-4 py-2 text-sm font-medium rounded-lg border border-green-300 text-green-600 hover:bg-green-50">
-                        Export Excel
-                    </button>
-                    <button onclick="printLedger()" class="px-4 py-2 text-sm font-medium rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
-                        Print
-                    </button>
-                </div>
-            </div>
-
-            <div id="loadingState" class="hidden text-center text-slate-400 py-10">Loading ledger…</div>
-            <div id="emptyState" class="hidden text-center text-slate-500 py-10 bg-white rounded-xl border border-slate-200">
-                Select a customer and click Show to view the ledger.
-            </div>
-
-            <div id="ledgerContent" class="hidden">
-
-                <div id="ledgerPrintArea">
-
-                    <!-- ================= CUSTOMER INFO CARD ================= -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
-                        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Customer Information</h2>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
-                            <div>
-                                <p class="text-xs text-slate-400 mb-1">Customer Name</p>
-                                <p class="font-semibold text-slate-800" id="ci_name">—</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400 mb-1">Customer ID</p>
-                                <p class="font-semibold text-slate-800" id="ci_id">—</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400 mb-1">Phone</p>
-                                <p class="font-semibold text-slate-800" id="ci_phone">—</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400 mb-1">Email</p>
-                                <p class="font-semibold text-slate-800" id="ci_email">—</p>
-                            </div>
-                            <div class="col-span-2">
-                                <p class="text-xs text-slate-400 mb-1">Address</p>
-                                <p class="font-semibold text-slate-800" id="ci_address">—</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400 mb-1">Credit Limit</p>
-                                <p class="font-semibold text-slate-800" id="ci_creditLimit">—</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400 mb-1">Outstanding Balance</p>
-                                <p class="font-bold text-red-600" id="ci_outstanding">—</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ================= SUMMARY CARDS ================= -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
-                        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Invoices</p>
-                            <p class="text-2xl font-bold text-slate-900" id="sum_totalInvoices">0</p>
-                        </div>
-                        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Sales</p>
-                            <p class="text-2xl font-bold text-slate-900" id="sum_totalSales">0.00</p>
-                        </div>
-                        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Paid</p>
-                            <p class="text-2xl font-bold text-green-600" id="sum_totalPaid">0.00</p>
-                        </div>
-                        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Outstanding Amount</p>
-                            <p class="text-2xl font-bold text-red-600" id="sum_outstanding">0.00</p>
-                        </div>
-                    </div>
-
-                    <!-- ================= LEDGER TABLE ================= -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
-                        <table class="w-full text-sm" id="ledgerTable">
-                            <thead>
-                                <tr class="bg-slate-100 text-slate-600 text-left">
-                                    <th class="py-3 px-4 font-semibold">Date</th>
-                                    <th class="py-3 px-4 font-semibold">Voucher Type</th>
-                                    <th class="py-3 px-4 font-semibold">Invoice No</th>
-                                    <th class="py-3 px-4 font-semibold">Description</th>
-                                    <th class="py-3 px-4 font-semibold text-right">Debit</th>
-                                    <th class="py-3 px-4 font-semibold text-right">Credit</th>
-                                    <th class="py-3 px-4 font-semibold text-right">Running Balance</th>
-                                    <th class="py-3 px-4 font-semibold">Status</th>
-                                    <th class="py-3 px-4 font-semibold text-center no-print">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ledgerBody"></tbody>
-                        </table>
-                        <div id="ledgerEmptyRow" class="hidden text-center text-slate-500 py-10">No transactions found for this filter.</div>
-                    </div>
-
-                </div>
+                <button onclick="resetFilters()" class="px-4 py-2 text-sm font-medium rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
+                    Reset
+                </button>
+                <div class="flex-1"></div>
+                <button onclick="exportPDF()" class="px-4 py-2 text-sm font-medium rounded-lg border border-red-300 text-red-600 hover:bg-red-50">
+                    Export PDF
+                </button>
+                <button onclick="exportExcel()" class="px-4 py-2 text-sm font-medium rounded-lg border border-green-300 text-green-600 hover:bg-green-50">
+                    Export Excel
+                </button>
+                <button onclick="printLedger()" class="px-4 py-2 text-sm font-medium rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
+                    Print
+                </button>
             </div>
         </div>
 
-        <!-- ================= VIEW INVOICE MODAL ================= -->
-        <div id="viewInvoiceModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[92vh] overflow-y-auto">
+        <div id="loadingState" class="hidden text-center text-slate-400 py-10">Loading ledger…</div>
+        <div id="emptyState" class="hidden text-center text-slate-500 py-10 bg-white rounded-xl border border-slate-200">
+            Select a customer and click Show to view the ledger.
+        </div>
 
-                <div class="no-print flex items-center justify-between px-6 py-3 border-b border-slate-200 bg-slate-50 rounded-t-xl sticky top-0 z-10">
-                    <h3 class="text-sm font-semibold text-slate-600">Invoice Preview</h3>
-                    <div class="flex items-center gap-2">
-                        <button onclick="window.print()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
-                            Print / Save PDF
-                        </button>
-                        <button onclick="closeViewInvoiceModal()" class="text-slate-400 hover:text-slate-600 text-xl leading-none px-2">&times;</button>
+        <div id="ledgerContent" class="hidden">
+
+            <div id="ledgerPrintArea">
+
+                <!-- ================= CUSTOMER INFO CARD ================= -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+                    <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Customer Information</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Customer Name</p>
+                            <p class="font-semibold text-slate-800" id="ci_name">—</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Customer ID</p>
+                            <p class="font-semibold text-slate-800" id="ci_id">—</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Phone</p>
+                            <p class="font-semibold text-slate-800" id="ci_phone">—</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Email</p>
+                            <p class="font-semibold text-slate-800" id="ci_email">—</p>
+                        </div>
+                        <div class="col-span-2">
+                            <p class="text-xs text-slate-400 mb-1">Address</p>
+                            <p class="font-semibold text-slate-800" id="ci_address">—</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Credit Limit</p>
+                            <p class="font-semibold text-slate-800" id="ci_creditLimit">—</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Outstanding Balance</p>
+                            <p class="font-bold text-red-600" id="ci_outstanding">—</p>
+                        </div>
                     </div>
                 </div>
 
-                <div id="viewInvoiceLoading" class="text-center text-slate-400 py-16">Loading invoice…</div>
-                <div id="viewInvoiceError" class="hidden mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
-
-                <div id="invoicePrintArea" class="hidden p-10">
-                    <div class="flex items-start justify-between pb-6 border-b-2 border-slate-800">
-                        <div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <div class="w-11 h-11 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg">E</div>
-                                <div>
-                                    <p class="text-xl font-bold text-slate-900 leading-tight">ERP System Pvt Ltd</p>
-                                    <p class="text-xs text-slate-500">Enterprise Resource Planning</p>
-                                </div>
-                            </div>
-                            <p class="text-xs text-slate-500 mt-3 leading-relaxed">
-                                123 Business Avenue, Jamshoro, Sindh, Pakistan<br />
-                                billing@erpsystem.com &nbsp;•&nbsp; +92 300 1234567
-                            </p>
-                        </div>
-                        <div class="text-right">
-                            <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">INVOICE</h1>
-                            <p class="text-sm text-slate-500 mt-1"># <span id="pv_invoiceNo" class="font-semibold text-slate-700"></span></p>
-                            <div class="mt-3" id="pv_statusBadge"></div>
-                        </div>
+                <!-- ================= SUMMARY CARDS ================= -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Invoices</p>
+                        <p class="text-2xl font-bold text-slate-900" id="sum_totalInvoices">0</p>
                     </div>
-
-                    <div class="grid grid-cols-2 gap-6 py-6">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Billed To</p>
-                            <p class="text-base font-semibold text-slate-800" id="pv_customerName"></p>
-                        </div>
-                        <div class="text-right">
-                            <div class="inline-block text-left">
-                                <div class="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
-                                    <span class="text-slate-400">Invoice Date</span>
-                                    <span class="font-medium text-slate-700" id="pv_invoiceDate"></span>
-                                    <span class="text-slate-400">Due Date</span>
-                                    <span class="font-medium text-slate-700" id="pv_dueDate"></span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Sales</p>
+                        <p class="text-2xl font-bold text-slate-900" id="sum_totalSales">0.00</p>
                     </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Paid</p>
+                        <p class="text-2xl font-bold text-green-600" id="sum_totalPaid">0.00</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Outstanding Amount</p>
+                        <p class="text-2xl font-bold text-red-600" id="sum_outstanding">0.00</p>
+                    </div>
+                </div>
 
-                    <table class="w-full text-sm border-collapse">
+                <!-- ================= LEDGER TABLE ================= -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+                    <table class="w-full text-sm" id="ledgerTable">
                         <thead>
-                            <tr class="bg-slate-800 text-white text-left">
-                                <th class="py-2.5 px-3 font-semibold rounded-l-lg">#</th>
-                                <th class="py-2.5 px-3 font-semibold">Product</th>
-                                <th class="py-2.5 px-3 font-semibold text-right">Qty</th>
-                                <th class="py-2.5 px-3 font-semibold text-right">Unit Price</th>
-                                <th class="py-2.5 px-3 font-semibold text-right">Discount</th>
-                                <th class="py-2.5 px-3 font-semibold text-right">Tax</th>
-                                <th class="py-2.5 px-3 font-semibold text-right rounded-r-lg">Line Total</th>
+                            <tr class="bg-slate-100 text-slate-600 text-left">
+                                <th class="py-3 px-4 font-semibold">Date</th>
+                                <th class="py-3 px-4 font-semibold">Voucher Type</th>
+                                <th class="py-3 px-4 font-semibold">Invoice No</th>
+                                <th class="py-3 px-4 font-semibold">Description</th>
+                                <th class="py-3 px-4 font-semibold text-right">Debit</th>
+                                <th class="py-3 px-4 font-semibold text-right">Credit</th>
+                                <th class="py-3 px-4 font-semibold text-right">Running Balance</th>
+                                <th class="py-3 px-4 font-semibold">Status</th>
+                                <th class="py-3 px-4 font-semibold text-center no-print">Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="pv_itemsBody"></tbody>
+                        <tbody id="ledgerBody"></tbody>
                     </table>
+                    <div id="ledgerEmptyRow" class="hidden text-center text-slate-500 py-10">No transactions found for this filter.</div>
+                </div>
 
-                    <div class="flex justify-end mt-6">
-                        <div class="w-72 space-y-2 text-sm">
-                            <div class="flex justify-between text-slate-500"><span>Subtotal</span><span id="pv_subtotal" class="text-slate-700 font-medium"></span></div>
-                            <div class="flex justify-between text-slate-500"><span>Discount</span><span id="pv_discount" class="text-slate-700 font-medium"></span></div>
-                            <div class="flex justify-between text-slate-500"><span>Tax</span><span id="pv_tax" class="text-slate-700 font-medium"></span></div>
-                            <div class="flex justify-between pt-2 border-t-2 border-slate-800 text-base font-bold text-slate-900"><span>Grand Total</span><span id="pv_grandTotal"></span></div>
-                            <div class="flex justify-between text-slate-500 pt-1"><span>Paid</span><span id="pv_paid" class="text-green-600 font-medium"></span></div>
-                            <div class="flex justify-between font-semibold text-slate-800"><span>Balance Due</span><span id="pv_balance"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= VIEW INVOICE MODAL ================= -->
+    <div id="viewInvoiceModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[92vh] overflow-y-auto">
+
+            <div class="no-print flex items-center justify-between px-6 py-3 border-b border-slate-200 bg-slate-50 rounded-t-xl sticky top-0 z-10">
+                <h3 class="text-sm font-semibold text-slate-600">Invoice Preview</h3>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                        Print / Save PDF
+                    </button>
+                    <button onclick="closeViewInvoiceModal()" class="text-slate-400 hover:text-slate-600 text-xl leading-none px-2">&times;</button>
+                </div>
+            </div>
+
+            <div id="viewInvoiceLoading" class="text-center text-slate-400 py-16">Loading invoice…</div>
+            <div id="viewInvoiceError" class="hidden mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+
+            <div id="invoicePrintArea" class="hidden p-10">
+                <div class="flex items-start justify-between pb-6 border-b-2 border-slate-800">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-11 h-11 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg">E</div>
+                            <div>
+                                <p class="text-xl font-bold text-slate-900 leading-tight">ERP System Pvt Ltd</p>
+                                <p class="text-xs text-slate-500">Enterprise Resource Planning</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3 leading-relaxed">
+                            123 Business Avenue, Jamshoro, Sindh, Pakistan<br />
+                            billing@erpsystem.com &nbsp;•&nbsp; +92 300 1234567
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">INVOICE</h1>
+                        <p class="text-sm text-slate-500 mt-1"># <span id="pv_invoiceNo" class="font-semibold text-slate-700"></span></p>
+                        <div class="mt-3" id="pv_statusBadge"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 py-6">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Billed To</p>
+                        <p class="text-base font-semibold text-slate-800" id="pv_customerName"></p>
+                    </div>
+                    <div class="text-right">
+                        <div class="inline-block text-left">
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
+                                <span class="text-slate-400">Invoice Date</span>
+                                <span class="font-medium text-slate-700" id="pv_invoiceDate"></span>
+                                <span class="text-slate-400">Due Date</span>
+                                <span class="font-medium text-slate-700" id="pv_dueDate"></span>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div id="pv_notesWrap" class="hidden mt-8 pt-5 border-t border-slate-200">
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Notes</p>
-                        <p class="text-sm text-slate-600" id="pv_notes"></p>
-                    </div>
+                <table class="w-full text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800 text-white text-left">
+                            <th class="py-2.5 px-3 font-semibold rounded-l-lg">#</th>
+                            <th class="py-2.5 px-3 font-semibold">Product</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Qty</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Unit Price</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Discount</th>
+                            <th class="py-2.5 px-3 font-semibold text-right">Tax</th>
+                            <th class="py-2.5 px-3 font-semibold text-right rounded-r-lg">Line Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pv_itemsBody"></tbody>
+                </table>
 
-                    <div class="mt-10 pt-5 border-t border-slate-200 text-center">
-                        <p class="text-xs text-slate-400">Thank you for your business.</p>
-                        <p class="text-xs text-slate-300 mt-1">This is a computer-generated invoice.</p>
+                <div class="flex justify-end mt-6">
+                    <div class="w-72 space-y-2 text-sm">
+                        <div class="flex justify-between text-slate-500"><span>Subtotal</span><span id="pv_subtotal" class="text-slate-700 font-medium"></span></div>
+                        <div class="flex justify-between text-slate-500"><span>Discount</span><span id="pv_discount" class="text-slate-700 font-medium"></span></div>
+                        <div class="flex justify-between text-slate-500"><span>Tax</span><span id="pv_tax" class="text-slate-700 font-medium"></span></div>
+                        <div class="flex justify-between pt-2 border-t-2 border-slate-800 text-base font-bold text-slate-900"><span>Grand Total</span><span id="pv_grandTotal"></span></div>
+                        <div class="flex justify-between text-slate-500 pt-1"><span>Paid</span><span id="pv_paid" class="text-green-600 font-medium"></span></div>
+                        <div class="flex justify-between font-semibold text-slate-800"><span>Balance Due</span><span id="pv_balance"></span></div>
                     </div>
+                </div>
+
+                <div id="pv_notesWrap" class="hidden mt-8 pt-5 border-t border-slate-200">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Notes</p>
+                    <p class="text-sm text-slate-600" id="pv_notes"></p>
+                </div>
+
+                <div class="mt-10 pt-5 border-t border-slate-200 text-center">
+                    <p class="text-xs text-slate-400">Thank you for your business.</p>
+                    <p class="text-xs text-slate-300 mt-1">This is a computer-generated invoice.</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
-    const CUSTOMER_API = "/api/Customer";
-            const CUSTOMER_LEDGER_API = "/api/CustomerLedger";
+    <script>  const CUSTOMER_API = "/api/Customer";
+        const CUSTOMER_LEDGER_API = "/api/CustomerLedger";
 
-            let currentLedgerData = null;
+        let currentLedgerData = null;
 
-            document.addEventListener("DOMContentLoaded", () => {
-                loadCustomers();
-            });
+        document.addEventListener("DOMContentLoaded", () => {
+            loadCustomers();
+        });
 
-            // ==================== LOAD CUSTOMERS ====================
-            async function loadCustomers() {
-                const select = document.getElementById("filterCustomerId");
-                try {
-                    const res = await fetch(CUSTOMER_API);
-                    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-                    const customers = await res.json();
+        // ==================== LOAD CUSTOMERS ====================
+        async function loadCustomers() {
+            const select = document.getElementById("filterCustomerId");
+            try {
+                const res = await fetch(CUSTOMER_API);
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+                const customers = await res.json();
 
-                    select.innerHTML = `<option value="">Select a customer…</option>` +
-                        customers.map(c => `<option value="${c.id}">${escapeHtml(c.name)} (#${c.id})</option>`).join("");
-                } catch (err) {
-                    select.innerHTML = `<option value="">Couldn't load customers</option>`;
-                    showPageError(`Failed to load customers: ${err.message}`);
-                }
+                select.innerHTML = `<option value="">Select a customer…</option>` +
+                    customers.map(c => `<option value="${c.id}">${escapeHtml(c.name)} (#${c.id})</option>`).join("");
+            } catch (err) {
+                select.innerHTML = `<option value="">Couldn't load customers</option>`;
+                showPageError(`Failed to load customers: ${err.message}`);
+            }
+        }
+
+        // ==================== LOAD LEDGER ====================
+        async function loadLedger() {
+            const customerId = document.getElementById("filterCustomerId").value;
+            hidePageError();
+
+            if (!customerId) {
+                showPageError("Please select a customer.");
+                return;
             }
 
-            // ==================== LOAD LEDGER ====================
-            async function loadLedger() {
-                const customerId = document.getElementById("filterCustomerId").value;
-                hidePageError();
+            document.getElementById("emptyState").classList.add("hidden");
+            document.getElementById("ledgerContent").classList.add("hidden");
+            document.getElementById("loadingState").classList.remove("hidden");
 
-                if (!customerId) {
-                    showPageError("Please select a customer.");
-                    return;
-                }
+            const fromDate = document.getElementById("filterFromDate").value;
+            const toDate = document.getElementById("filterToDate").value;
+            const paymentStatus = document.getElementById("filterPaymentStatus").value;
+            const invoiceNo = document.getElementById("filterInvoiceNo").value.trim();
 
-                document.getElementById("emptyState").classList.add("hidden");
-                document.getElementById("ledgerContent").classList.add("hidden");
-                document.getElementById("loadingState").classList.remove("hidden");
+            const params = new URLSearchParams();
+            params.append("customerId", customerId);
+            if (fromDate) params.append("fromDate", fromDate);
+            if (toDate) params.append("toDate", toDate);
+            if (paymentStatus) params.append("paymentStatus", paymentStatus);
+            if (invoiceNo) params.append("invoiceNo", invoiceNo);
 
-                const fromDate = document.getElementById("filterFromDate").value;
-                const toDate = document.getElementById("filterToDate").value;
-                const paymentStatus = document.getElementById("filterPaymentStatus").value;
-                const invoiceNo = document.getElementById("filterInvoiceNo").value.trim();
-
-                const params = new URLSearchParams();
-                params.append("customerId", customerId);
-                if (fromDate) params.append("fromDate", fromDate);
-                if (toDate) params.append("toDate", toDate);
-                if (paymentStatus) params.append("paymentStatus", paymentStatus);
-                if (invoiceNo) params.append("invoiceNo", invoiceNo);
-
-                try {
-                    const res = await fetch(`${CUSTOMER_LEDGER_API}?${params.toString()}`);
-                    if (!res.ok) {
-                        const errData = await res.json().catch(() => null);
-                        throw new Error(errData?.message || `Server returned ${res.status}`);
-                    }
-
-                    const data = await res.json();
-                    currentLedgerData = data;
-
-                    renderCustomerInfo(data.customerInfo);
-                    renderSummary(data.summary);
-                    renderLedger(data.ledgerEntries);
-
-                    document.getElementById("loadingState").classList.add("hidden");
-                    document.getElementById("ledgerContent").classList.remove("hidden");
-                } catch (err) {
-                    document.getElementById("loadingState").classList.add("hidden");
-                    showPageError(`Failed to load ledger: ${err.message}`);
-                }
-            }
-
-            // ==================== RENDER CUSTOMER INFO ====================
-            function renderCustomerInfo(info) {
-                document.getElementById("ci_name").textContent = info.name || "—";
-                document.getElementById("ci_id").textContent = info.id ?? "—";
-                document.getElementById("ci_phone").textContent = info.phone || "—";
-                document.getElementById("ci_email").textContent = info.email || "—";
-                document.getElementById("ci_address").textContent = info.address || "—";
-                document.getElementById("ci_creditLimit").textContent = formatCurrency(info.creditLimit);
-                document.getElementById("ci_outstanding").textContent = formatCurrency(info.outstandingBalance);
-            }
-
-            // ==================== RENDER SUMMARY ====================
-            function renderSummary(summary) {
-                document.getElementById("sum_totalInvoices").textContent = summary.totalInvoices;
-                document.getElementById("sum_totalSales").textContent = formatCurrency(summary.totalSales);
-                document.getElementById("sum_totalPaid").textContent = formatCurrency(summary.totalPaid);
-                document.getElementById("sum_outstanding").textContent = formatCurrency(summary.outstandingAmount);
-            }
-
-            // ==================== RENDER LEDGER TABLE ====================
-            function renderLedger(entries) {
-                const tbody = document.getElementById("ledgerBody");
-                const emptyRow = document.getElementById("ledgerEmptyRow");
-
-                if (!entries || entries.length === 0) {
-                    tbody.innerHTML = "";
-                    emptyRow.classList.remove("hidden");
-                    return;
+            try {
+                const res = await fetch(`${CUSTOMER_LEDGER_API}?${params.toString()}`);
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => null);
+                    throw new Error(errData?.message || `Server returned ${res.status}`);
                 }
 
-                emptyRow.classList.add("hidden");
+                const data = await res.json();
+                currentLedgerData = data;
 
-                tbody.innerHTML = entries.map(entry => `
-                <tr class="border-b border-slate-100 hover:bg-slate-50">
-                    <td class="py-3 px-4 text-slate-600">${formatDate(entry.transactionDate)}</td>
-                    <td class="py-3 px-4">${voucherTypeBadge(entry.voucherType)}</td>
-                    <td class="py-3 px-4 text-slate-700 font-medium">${entry.invoiceNo ? escapeHtml(entry.invoiceNo) : "—"}</td>
-                    <td class="py-3 px-4 text-slate-600">${escapeHtml(entry.description)}</td>
-                    <td class="py-3 px-4 text-right text-slate-800">${entry.debit > 0 ? formatCurrency(entry.debit) : "—"}</td>
-                    <td class="py-3 px-4 text-right text-slate-800">${entry.credit > 0 ? formatCurrency(entry.credit) : "—"}</td>
-                    <td class="py-3 px-4 text-right font-semibold text-slate-900">${formatCurrency(entry.runningBalance)}</td>
-                    <td class="py-3 px-4">${entry.paymentStatus ? statusBadge(entry.paymentStatus) : "—"}</td>
-                    <td class="py-3 px-4 text-center no-print">
-                        ${entry.invoiceId && entry.voucherType === "Invoice"
-                        ? `<button onclick="viewInvoice(${entry.invoiceId})" class="px-3 py-1.5 text-xs rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100">View Invoice</button>`
-                        : ""}
-                    </td>
-                </tr>
-            `).join("");
+                renderCustomerInfo(data.customerInfo);
+                renderSummary(data.summary);
+                renderLedger(data.ledgerEntries);
+
+                document.getElementById("loadingState").classList.add("hidden");
+                document.getElementById("ledgerContent").classList.remove("hidden");
+            } catch (err) {
+                document.getElementById("loadingState").classList.add("hidden");
+                showPageError(`Failed to load ledger: ${err.message}`);
+            }
+        }
+
+        // ==================== RENDER CUSTOMER INFO ====================
+        function renderCustomerInfo(info) {
+            document.getElementById("ci_name").textContent = info.name || "—";
+            document.getElementById("ci_id").textContent = info.id ?? "—";
+            document.getElementById("ci_phone").textContent = info.phone || "—";
+            document.getElementById("ci_email").textContent = info.email || "—";
+            document.getElementById("ci_address").textContent = info.address || "—";
+            document.getElementById("ci_creditLimit").textContent = formatCurrency(info.creditLimit);
+            document.getElementById("ci_outstanding").textContent = formatCurrency(info.outstandingBalance);
+        }
+
+        // ==================== RENDER SUMMARY ====================
+        function renderSummary(summary) {
+            document.getElementById("sum_totalInvoices").textContent = summary.totalInvoices;
+            document.getElementById("sum_totalSales").textContent = formatCurrency(summary.totalSales);
+            document.getElementById("sum_totalPaid").textContent = formatCurrency(summary.totalPaid);
+            document.getElementById("sum_outstanding").textContent = formatCurrency(summary.outstandingAmount);
+        }
+
+        // ==================== RENDER LEDGER TABLE ====================
+        function renderLedger(entries) {
+            const tbody = document.getElementById("ledgerBody");
+            const emptyRow = document.getElementById("ledgerEmptyRow");
+
+            if (!entries || entries.length === 0) {
+                tbody.innerHTML = "";
+                emptyRow.classList.remove("hidden");
+                return;
             }
 
-            // ==================== VIEW INVOICE ====================
-            async function viewInvoice(invoiceId) {
-                openViewInvoiceModal();
-                document.getElementById("viewInvoiceLoading").classList.remove("hidden");
-                document.getElementById("invoicePrintArea").classList.add("hidden");
-                document.getElementById("viewInvoiceError").classList.add("hidden");
+            emptyRow.classList.add("hidden");
 
-                try {
-                    const res = await fetch(`${CUSTOMER_LEDGER_API}/ViewInvoice/${invoiceId}`);
-                    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-                    const invoice = await res.json();
+            tbody.innerHTML = entries.map(entry => `
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+            <td class="py-3 px-4 text-slate-600">${formatDate(entry.transactionDate)}</td>
+            <td class="py-3 px-4">${voucherTypeBadge(entry.voucherType)}</td>
+            <td class="py-3 px-4 text-slate-700 font-medium">${entry.invoiceNo ? escapeHtml(entry.invoiceNo) : "—"}</td>
+            <td class="py-3 px-4 text-slate-600">${escapeHtml(entry.description)}</td>
+            <td class="py-3 px-4 text-right text-slate-800">${entry.debit > 0 ? formatCurrency(entry.debit) : "—"}</td>
+            <td class="py-3 px-4 text-right text-slate-800">${entry.credit > 0 ? formatCurrency(entry.credit) : "—"}</td>
+            <td class="py-3 px-4 text-right font-semibold text-slate-900">${formatCurrency(entry.runningBalance)}</td>
+            <td class="py-3 px-4">${entry.paymentStatus ? statusBadge(entry.paymentStatus) : "—"}</td>
+            <td class="py-3 px-4 text-center no-print">
+                ${entry.invoiceId && entry.voucherType === "Invoice"
+                    ? `<button onclick="viewInvoice(${entry.invoiceId})" class="px-3 py-1.5 text-xs rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100">View Invoice</button>`
+                    : ""}
+            </td>
+        </tr>
+    `).join("");
+        }
 
-                    populateInvoicePreview(invoice);
+        // ==================== VIEW INVOICE ====================
+        async function viewInvoice(invoiceId) {
+            openViewInvoiceModal();
+            document.getElementById("viewInvoiceLoading").classList.remove("hidden");
+            document.getElementById("invoicePrintArea").classList.add("hidden");
+            document.getElementById("viewInvoiceError").classList.add("hidden");
 
-                    document.getElementById("viewInvoiceLoading").classList.add("hidden");
-                    document.getElementById("invoicePrintArea").classList.remove("hidden");
-                } catch (err) {
-                    document.getElementById("viewInvoiceLoading").classList.add("hidden");
-                    const el = document.getElementById("viewInvoiceError");
-                    el.textContent = `Failed to load invoice: ${err.message}`;
-                    el.classList.remove("hidden");
-                }
-            }
+            try {
+                const res = await fetch(`${CUSTOMER_LEDGER_API}/ViewInvoice/${invoiceId}`);
+                if (!res.ok) throw new Error(`Server returned ${res.status}`);
+                const invoice = await res.json();
 
-            function populateInvoicePreview(invoice) {
-                document.getElementById("pv_invoiceNo").textContent = invoice.invoiceNo || "—";
-                document.getElementById("pv_customerName").textContent = invoice.customerName || "—";
-                document.getElementById("pv_invoiceDate").textContent = formatDate(invoice.invoiceDate);
-                document.getElementById("pv_dueDate").textContent = invoice.dueDate ? formatDate(invoice.dueDate) : "—";
-                document.getElementById("pv_statusBadge").innerHTML = statusBadge(invoice.paymentStatus);
+                populateInvoicePreview(invoice);
 
-                const items = invoice.salesLedgerItem || invoice.SalesLedgerItem || [];
-                const itemsBody = document.getElementById("pv_itemsBody");
-
-                if (items.length === 0) {
-                    itemsBody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400 text-sm">No line items.</td></tr>`;
-                } else {
-                    itemsBody.innerHTML = items.map((item, idx) => `
-                    <tr class="border-b border-slate-100 ${idx % 2 === 1 ? 'bg-slate-50/60' : ''}">
-                        <td class="py-2.5 px-3 text-slate-500">${idx + 1}</td>
-                        <td class="py-2.5 px-3 text-slate-800 font-medium">${escapeHtml(item.productName || `Product #${item.productId}`)}</td>
-                        <td class="py-2.5 px-3 text-right text-slate-600">${item.quantity}</td>
-                        <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.unitPrice)}</td>
-                        <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.discount)}</td>
-                        <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.tax)}</td>
-                        <td class="py-2.5 px-3 text-right font-semibold text-slate-800">${formatCurrency(item.lineTotal)}</td>
-                    </tr>
-                `).join("");
-                }
-
-                document.getElementById("pv_subtotal").textContent = formatCurrency(invoice.subtotal);
-                document.getElementById("pv_discount").textContent = `- ${formatCurrency(invoice.discount)}`;
-                document.getElementById("pv_tax").textContent = `+ ${formatCurrency(invoice.tax)}`;
-                document.getElementById("pv_grandTotal").textContent = formatCurrency(invoice.grandTotal);
-                document.getElementById("pv_paid").textContent = formatCurrency(invoice.paidAmount);
-                document.getElementById("pv_balance").textContent = formatCurrency(invoice.balance);
-
-                const notesWrap = document.getElementById("pv_notesWrap");
-                if (invoice.notes && invoice.notes.trim() !== "") {
-                    document.getElementById("pv_notes").textContent = invoice.notes;
-                    notesWrap.classList.remove("hidden");
-                } else {
-                    notesWrap.classList.add("hidden");
-                }
-            }
-
-            function openViewInvoiceModal() {
-                document.getElementById("viewInvoiceModal").classList.remove("hidden");
-            }
-
-            function closeViewInvoiceModal() {
-                document.getElementById("viewInvoiceModal").classList.add("hidden");
-            }
-
-            // ==================== PRINT ====================
-            function printLedger() {
-                window.print();
-            }
-
-            // ==================== EXPORT PDF ====================
-            function exportPDF() {
-                if (!currentLedgerData) {
-                    showPageError("Please load a ledger before exporting.");
-                    return;
-                }
-
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                doc.setFontSize(14);
-                doc.text("Customer Ledger", 14, 15);
-                doc.setFontSize(10);
-                doc.text(`Customer: ${currentLedgerData.customerInfo.name}`, 14, 22);
-                doc.text(`Outstanding Balance: ${formatCurrency(currentLedgerData.customerInfo.outstandingBalance)}`, 14, 28);
-
-                const rows = currentLedgerData.ledgerEntries.map(e => [
-                    formatDate(e.transactionDate),
-                    e.voucherType,
-                    e.invoiceNo || "—",
-                    e.description,
-                    e.debit > 0 ? formatCurrency(e.debit) : "—",
-                    e.credit > 0 ? formatCurrency(e.credit) : "—",
-                    formatCurrency(e.runningBalance)
-                ]);
-
-                doc.autoTable({
-                    startY: 34,
-                    head: [["Date", "Voucher Type", "Invoice No", "Description", "Debit", "Credit", "Balance"]],
-                    body: rows,
-                    styles: { fontSize: 8 },
-                    headStyles: { fillColor: [30, 41, 59] }
-                });
-
-                doc.save(`Customer-Ledger-${currentLedgerData.customerInfo.name}.pdf`);
-            }
-
-            // ==================== EXPORT EXCEL ====================
-            function exportExcel() {
-                if (!currentLedgerData) {
-                    showPageError("Please load a ledger before exporting.");
-                    return;
-                }
-
-                const rows = currentLedgerData.ledgerEntries.map(e => ({
-                    Date: formatDate(e.transactionDate),
-                    "Voucher Type": e.voucherType,
-                    "Invoice No": e.invoiceNo || "",
-                    Description: e.description,
-                    Debit: e.debit,
-                    Credit: e.credit,
-                    "Running Balance": e.runningBalance,
-                    Status: e.paymentStatus || ""
-                }));
-
-                const worksheet = XLSX.utils.json_to_sheet(rows);
-                const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, "Customer Ledger");
-                XLSX.writeFile(workbook, `Customer-Ledger-${currentLedgerData.customerInfo.name}.xlsx`);
-            }
-
-            // ==================== RESET FILTERS ====================
-            function resetFilters() {
-                document.getElementById("filterCustomerId").value = "";
-                document.getElementById("filterFromDate").value = "";
-                document.getElementById("filterToDate").value = "";
-                document.getElementById("filterPaymentStatus").value = "All";
-                document.getElementById("filterInvoiceNo").value = "";
-
-                currentLedgerData = null;
-                document.getElementById("ledgerContent").classList.add("hidden");
-                document.getElementById("emptyState").classList.remove("hidden");
-                hidePageError();
-            }
-
-            // ==================== HELPERS ====================
-            function voucherTypeBadge(type) {
-                const cls = type === "Invoice" ? "bg-indigo-100 text-indigo-700" : "bg-green-100 text-green-700";
-                return `<span class="px-2.5 py-1 rounded-full text-xs font-medium ${cls}">${escapeHtml(type)}</span>`;
-            }
-
-            function statusBadge(status) {
-                const map = {
-                    "Paid": "bg-green-100 text-green-700",
-                    "Partial": "bg-yellow-100 text-yellow-700",
-                    "Unpaid": "bg-red-100 text-red-700"
-                };
-                const cls = map[status] || "bg-slate-100 text-slate-600";
-                return `<span class="px-2.5 py-1 rounded-full text-xs font-medium ${cls}">${escapeHtml(status || "—")}</span>`;
-            }
-
-            function formatDate(dateStr) {
-                if (!dateStr) return "—";
-                const d = new Date(dateStr);
-                if (isNaN(d)) return dateStr;
-                return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-            }
-
-            function formatCurrency(value) {
-                const num = parseFloat(value) || 0;
-                return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            function showPageError(msg) {
-                const el = document.getElementById("pageError");
-                el.textContent = msg;
+                document.getElementById("viewInvoiceLoading").classList.add("hidden");
+                document.getElementById("invoicePrintArea").classList.remove("hidden");
+            } catch (err) {
+                document.getElementById("viewInvoiceLoading").classList.add("hidden");
+                const el = document.getElementById("viewInvoiceError");
+                el.textContent = `Failed to load invoice: ${err.message}`;
                 el.classList.remove("hidden");
             }
+        }
 
-            function hidePageError() {
-                document.getElementById("pageError").classList.add("hidden");
+        function populateInvoicePreview(invoice) {
+            document.getElementById("pv_invoiceNo").textContent = invoice.invoiceNo || "—";
+            document.getElementById("pv_customerName").textContent = invoice.customerName || "—";
+            document.getElementById("pv_invoiceDate").textContent = formatDate(invoice.invoiceDate);
+            document.getElementById("pv_dueDate").textContent = invoice.dueDate ? formatDate(invoice.dueDate) : "—";
+            document.getElementById("pv_statusBadge").innerHTML = statusBadge(invoice.paymentStatus);
+
+            const items = invoice.salesLedgerItem || invoice.SalesLedgerItem || [];
+            const itemsBody = document.getElementById("pv_itemsBody");
+
+            if (items.length === 0) {
+                itemsBody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400 text-sm">No line items.</td></tr>`;
+            } else {
+                itemsBody.innerHTML = items.map((item, idx) => `
+            <tr class="border-b border-slate-100 ${idx % 2 === 1 ? 'bg-slate-50/60' : ''}">
+                <td class="py-2.5 px-3 text-slate-500">${idx + 1}</td>
+                <td class="py-2.5 px-3 text-slate-800 font-medium">${escapeHtml(item.productName || `Product #${item.productId}`)}</td>
+                <td class="py-2.5 px-3 text-right text-slate-600">${item.quantity}</td>
+                <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.unitPrice)}</td>
+                <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.discount)}</td>
+                <td class="py-2.5 px-3 text-right text-slate-600">${formatCurrency(item.tax)}</td>
+                <td class="py-2.5 px-3 text-right font-semibold text-slate-800">${formatCurrency(item.lineTotal)}</td>
+            </tr>
+        `).join("");
             }
 
-            function escapeHtml(str) {
-                if (str === null || str === undefined) return "";
-                return String(str)
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;");
-            }</script>
-    </body>
+            document.getElementById("pv_subtotal").textContent = formatCurrency(invoice.subtotal);
+            document.getElementById("pv_discount").textContent = `- ${formatCurrency(invoice.discount)}`;
+            document.getElementById("pv_tax").textContent = `+ ${formatCurrency(invoice.tax)}`;
+            document.getElementById("pv_grandTotal").textContent = formatCurrency(invoice.grandTotal);
+            document.getElementById("pv_paid").textContent = formatCurrency(invoice.paidAmount);
+            document.getElementById("pv_balance").textContent = formatCurrency(invoice.balance);
+
+            const notesWrap = document.getElementById("pv_notesWrap");
+            if (invoice.notes && invoice.notes.trim() !== "") {
+                document.getElementById("pv_notes").textContent = invoice.notes;
+                notesWrap.classList.remove("hidden");
+            } else {
+                notesWrap.classList.add("hidden");
+            }
+        }
+
+        function openViewInvoiceModal() {
+            document.getElementById("viewInvoiceModal").classList.remove("hidden");
+        }
+
+        function closeViewInvoiceModal() {
+            document.getElementById("viewInvoiceModal").classList.add("hidden");
+        }
+
+        // ==================== PRINT ====================
+        function printLedger() {
+            window.print();
+        }
+
+        // ==================== EXPORT PDF ====================
+        function exportPDF() {
+            if (!currentLedgerData) {
+                showPageError("Please load a ledger before exporting.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(14);
+            doc.text("Customer Ledger", 14, 15);
+            doc.setFontSize(10);
+            doc.text(`Customer: ${currentLedgerData.customerInfo.name}`, 14, 22);
+            doc.text(`Outstanding Balance: ${formatCurrency(currentLedgerData.customerInfo.outstandingBalance)}`, 14, 28);
+
+            const rows = currentLedgerData.ledgerEntries.map(e => [
+                formatDate(e.transactionDate),
+                e.voucherType,
+                e.invoiceNo || "—",
+                e.description,
+                e.debit > 0 ? formatCurrency(e.debit) : "—",
+                e.credit > 0 ? formatCurrency(e.credit) : "—",
+                formatCurrency(e.runningBalance)
+            ]);
+
+            doc.autoTable({
+                startY: 34,
+                head: [["Date", "Voucher Type", "Invoice No", "Description", "Debit", "Credit", "Balance"]],
+                body: rows,
+                styles: { fontSize: 8 },
+                headStyles: { fillColor: [30, 41, 59] }
+            });
+
+            doc.save(`Customer-Ledger-${currentLedgerData.customerInfo.name}.pdf`);
+        }
+
+        // ==================== EXPORT EXCEL ====================
+        function exportExcel() {
+            if (!currentLedgerData) {
+                showPageError("Please load a ledger before exporting.");
+                return;
+            }
+
+            const rows = currentLedgerData.ledgerEntries.map(e => ({
+                Date: formatDate(e.transactionDate),
+                "Voucher Type": e.voucherType,
+                "Invoice No": e.invoiceNo || "",
+                Description: e.description,
+                Debit: e.debit,
+                Credit: e.credit,
+                "Running Balance": e.runningBalance,
+                Status: e.paymentStatus || ""
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(rows);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Customer Ledger");
+            XLSX.writeFile(workbook, `Customer-Ledger-${currentLedgerData.customerInfo.name}.xlsx`);
+        }
+
+        // ==================== RESET FILTERS ====================
+        function resetFilters() {
+            document.getElementById("filterCustomerId").value = "";
+            document.getElementById("filterFromDate").value = "";
+            document.getElementById("filterToDate").value = "";
+            document.getElementById("filterPaymentStatus").value = "All";
+            document.getElementById("filterInvoiceNo").value = "";
+
+            currentLedgerData = null;
+            document.getElementById("ledgerContent").classList.add("hidden");
+            document.getElementById("emptyState").classList.remove("hidden");
+            hidePageError();
+        }
+
+        // ==================== HELPERS ====================
+        function voucherTypeBadge(type) {
+            const cls = type === "Invoice" ? "bg-indigo-100 text-indigo-700" : "bg-green-100 text-green-700";
+            return `<span class="px-2.5 py-1 rounded-full text-xs font-medium ${cls}">${escapeHtml(type)}</span>`;
+        }
+
+        function statusBadge(status) {
+            const map = {
+                "Paid": "bg-green-100 text-green-700",
+                "Partial": "bg-yellow-100 text-yellow-700",
+                "Unpaid": "bg-red-100 text-red-700"
+            };
+            const cls = map[status] || "bg-slate-100 text-slate-600";
+            return `<span class="px-2.5 py-1 rounded-full text-xs font-medium ${cls}">${escapeHtml(status || "—")}</span>`;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return "—";
+            const d = new Date(dateStr);
+            if (isNaN(d)) return dateStr;
+            return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+        }
+
+        function formatCurrency(value) {
+            const num = parseFloat(value) || 0;
+            return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function showPageError(msg) {
+            const el = document.getElementById("pageError");
+            el.textContent = msg;
+            el.classList.remove("hidden");
+        }
+
+        function hidePageError() {
+            document.getElementById("pageError").classList.add("hidden");
+        }
+
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }  </script>
+</body>
 </html>
