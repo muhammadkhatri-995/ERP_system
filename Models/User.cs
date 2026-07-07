@@ -21,7 +21,11 @@ namespace ERP_sys.Models
 
         public bool IsActive {  get; set; } 
 
+        public bool IsAdmin { get; set; } 
         public String ProfilePicture { get; set; } = String.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+
 
 
         // forgein keys 

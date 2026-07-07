@@ -2,6 +2,11 @@
 
 using ERP_sys.Data;
 using ERP_sys.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using ERP_sys.Services;
+using ERP_sys.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,9 +30,37 @@ builder.Services.AddScoped<ICustomerLedgerRepository, CustomerLedgerRepository>(
 
 
 
+
 // Swagger/OpenAPI Configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// JWT Authentication Configuration
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+builder.Services.AddAuthorization();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 var app = builder.Build();
 
@@ -41,6 +74,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Enables serving static HTML files from your wwwroot folder
+app.UseStaticFiles();
+app.UseDefaultFiles(new DefaultFilesOptions
+{
+    DefaultFileNames = new List<string> { "users/login.html" }
+});
+
 app.UseStaticFiles();
 
 app.UseAuthorization();

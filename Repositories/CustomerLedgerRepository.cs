@@ -148,7 +148,7 @@ namespace ERP_sys.Repositories
 				});
 			}
 
-			// Sort chronologically (invoice entries before same-day payment entries)
+			
 			entries.Sort((a, b) =>
 			{
 				int dateCompare = a.TransactionDate.CompareTo(b.TransactionDate);

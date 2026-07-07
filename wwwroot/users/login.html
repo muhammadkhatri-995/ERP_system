@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-indigo-600 rounded-xl flex items-center justify-center text-white text-3xl font-bold mx-auto">
+                E
+            </div>
+
+            <h2 class="text-2xl font-bold mt-4">
+                ERP System
+            </h2>
+
+            <p class="text-slate-500">
+                Sign in to your account
+            </p>
+        </div>
+
+        <div id="loginError"
+             class="hidden mb-4 bg-red-100 border border-red-300 text-red-700 rounded-lg p-3">
+        </div>
+
+        <form id="loginForm">
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Email
+                </label>
+
+                <input id="email"
+                       type="email"
+                       required
+                       autocomplete="username"
+                       class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Password
+                </label>
+
+                <input id="password"
+                       type="password"
+                       required
+                       autocomplete="current-password"
+                       class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+
+            <div class="flex items-center mb-6">
+
+                <input id="rememberMe"
+                       type="checkbox"
+                       class="mr-2">
+
+                <label for="rememberMe">
+                    Remember Me
+                </label>
+
+            </div>
+
+            <button id="loginBtn"
+                    type="submit"
+                    class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition">
+
+                Login
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        const API_URL = "/api/Auth/login";
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const token =
+                localStorage.getItem("erp_token") ||
+                sessionStorage.getItem("erp_token");
+
+            if (token) {
+
+                const role =
+                    localStorage.getItem("erp_role") ||
+                    sessionStorage.getItem("erp_role");
+
+                redirectByRole(role);
+            }
+
+        });
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", login);
+
+        async function login(e) {
+
+            e.preventDefault();
+
+            hideError();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const remember =
+                document.getElementById("rememberMe").checked;
+
+            const btn =
+                document.getElementById("loginBtn");
+
+            btn.disabled = true;
+            btn.textContent = "Signing In...";
+
+            try {
+
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch {
+                    throw new Error(`Server returned ${response.status}`);
+                }
+
+                if (!response.ok) {
+
+                    throw new Error(data.message || "Login Failed");
+
+                }
+
+                const storage = remember
+                    ? localStorage
+                    : sessionStorage;
+
+                storage.setItem("erp_token", data.token);
+                storage.setItem("erp_userId", data.userId);
+                storage.setItem("erp_name", data.name);
+                storage.setItem("erp_email", data.email);
+                storage.setItem("erp_role", data.role);
+
+                redirectByRole(data.role);
+
+            }
+
+            catch (error) {
+
+                showError(error.message);
+
+            }
+
+            finally {
+
+                btn.disabled = false;
+                btn.textContent = "Login";
+
+            }
+
+        }
+
+        function redirectByRole(role) {
+
+            if (role === "Admin") {
+
+                window.location.href = "/users/admin/navbar.html";
+
+            } else {
+
+                // Agar user dashboard baad me banega to yahan uska path dena
+                window.location.href = "/users/user/navbar.html";
+
+            }
+
+        }
+
+        function showError(message) {
+
+            const div = document.getElementById("loginError");
+
+            div.textContent = message;
+
+            div.classList.remove("hidden");
+
+        }
+
+        function hideError() {
+
+            document
+                .getElementById("loginError")
+                .classList.add("hidden");
+
+        }
+
+    </script>
+
+</body>
+</html>
