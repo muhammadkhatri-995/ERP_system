@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - ERP System</title>
+    <script>window.ALLOWED_ROLES = ["Admin", "User"];</script>
+    <script src="/auth-guard.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -178,7 +180,7 @@
         // ================== AUTH HELPERS (inlined — no external file needed) ==================
 
         function getToken() {
-            return localStorage.getItem("erp_token") || sessionStorage.getItem("erp_token");
+           return localStorage.getItem("erp_token") || sessionStorage.getItem("erp_token");
         }
 
         function authHeaders(extraHeaders = {}) {
@@ -189,23 +191,23 @@
             };
         }
 
-        function requireAuth() {
-            const token = getToken();
-            if (!token) {
-                window.location.href = "/login.html";
-                return false;
-            }
-            return true;
-        }
+         function requireAuth() {
+             const token = getToken();
+             if (!token) {
+                 window.location.href = "/users/login.html";
+                 return false;
+             }
+             return true;
+         }
 
         function logout() {
-            localStorage.removeItem("erp_token");
-            localStorage.removeItem("erp_userId");
-            localStorage.removeItem("erp_name");
-            localStorage.removeItem("erp_email");
-            localStorage.removeItem("erp_role");
-            sessionStorage.clear();
-            window.location.href = "/login.html";
+           localStorage.removeItem("erp_token");
+           localStorage.removeItem("erp_userId");
+           localStorage.removeItem("erp_name");
+           localStorage.removeItem("erp_email");
+           localStorage.removeItem("erp_role");
+           sessionStorage.clear();
+           window.location.href = "/users/login.html";
         }
 
         // ================== DASHBOARD LOGIC ==================
@@ -214,7 +216,7 @@
             new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
         document.addEventListener("DOMContentLoaded", () => {
-            if (!requireAuth()) return;
+          //  if (!requireAuth()) return;
 
             const name = localStorage.getItem("erp_name") || sessionStorage.getItem("erp_name") || "";
             if (name) {

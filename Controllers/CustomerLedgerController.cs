@@ -1,5 +1,6 @@
-using ERP_sys.Repositories;
+using ERP_sys.Attributes;
 using ERP_sys.Models.DTOs;
+using ERP_sys.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace ERP_sys.Controllers
 {
     [ApiController]
+
     [Route("api/[controller]")]
     public class CustomerLedgerController : ControllerBase
     {
@@ -22,6 +24,7 @@ namespace ERP_sys.Controllers
         }
 
         [HttpGet]
+        [AuditAction("Gets the customer ledger")]
         public async Task<IActionResult> GetLedger(
             [FromQuery] int customerId,
             [FromQuery] DateTime? fromDate,
@@ -53,6 +56,7 @@ namespace ERP_sys.Controllers
             {
                 return StatusCode(500, new { message = "Failed to load customer ledger", detail = ex.Message });
             }
+     
         }
 
         [HttpGet("{customerId}")]

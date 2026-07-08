@@ -1,3 +1,4 @@
+using ERP_sys.Attributes;
 using ERP_sys.Models.DTOs;
 using ERP_sys.Repositories;
 using ERP_sys.Services;
@@ -20,6 +21,7 @@ namespace ERP_sys.Controllers
         }
 
         [HttpPost("login")]
+        [AuditAction("User logged in")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
             if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))

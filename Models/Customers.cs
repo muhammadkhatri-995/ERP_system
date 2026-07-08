@@ -12,11 +12,10 @@ namespace ERP_sys.Models
         public string City { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-       public int? UpdatedBy { get; set; }
+        public int? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsDeleted { get; set; } = false;
         // Navigation property for SalesLedger
         public List<SalesLedger> SalesLedgers { get; set; } = new List<SalesLedger>();
-
     }
 }

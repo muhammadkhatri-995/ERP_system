@@ -1,7 +1,8 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using ERP_sys.Attributes;
 using ERP_sys.Models;
 using ERP_sys.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ERP_sys.Controllers
 {
@@ -37,6 +38,7 @@ namespace ERP_sys.Controllers
 
         // POST: api/SalesLedger
         [HttpPost]
+        [AuditAction("Create the invoice")]
         public async Task<IActionResult> Create([FromBody] SalesLedger ledger)
         {
             if (string.IsNullOrWhiteSpace(ledger.InvoiceNo))
@@ -69,6 +71,7 @@ namespace ERP_sys.Controllers
 
         // DELETE: api/SalesLedger/5
         [HttpDelete("{id}")]
+        [AuditAction("Deletes the Invoice")]
         public async Task<IActionResult> Delete(int id)
         {
             var rowsAffected = await _salesLedgerRepository.DeleteInvoiceAsync(id);
