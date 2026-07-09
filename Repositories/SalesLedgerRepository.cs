@@ -185,7 +185,10 @@ namespace ERP_sys.Repositories
                     InvoiceNo = reader["InvoiceNo"].ToString(),
                     CustomerId = (int)reader["CustomerId"],
                     CustomerName = reader["CustomerName"].ToString(),
-                    InvoiceDate = (DateTime)reader["InvoiceDate"],
+                    //  InvoiceDate = (DateTime)reader["InvoiceDate"],
+                    invoice.DueDate = reader.IsDBNull(reader.GetOrdinal("DueDate"))
+    ? null
+    : reader.GetDateTime(reader.GetOrdinal("DueDate"));
                     DueDate = (DateTime?)reader["DueDate"],
                     GrandTotal = (decimal)reader["GrandTotal"],
                     PaidAmount = (decimal)reader["PaidAmount"],

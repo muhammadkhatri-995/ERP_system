@@ -1,6 +1,4 @@
-
-
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -439,6 +437,879 @@
         }
 
         // Capture global Escape Key Event
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const drawer = document.getElementById('customerDrawer');
+                if (!drawer.classList.contains('translate-x-full')) {
+                    closeCustomerDrawer();
+                }
+            }
+        });
+
+        function clearValidationErrors() {
+            const errorFields = ['errName', 'errEmail', 'errPhone', 'errCity', 'errCreatedBy'];
+            errorFields.forEach(id => {
+                const element = document.getElementById(id);
+                element.innerText = '';
+                element.classList.add('hidden');
+            });
+        }
+
+        function validateCustomerForm() {
+            clearValidationErrors();
+            let isValid = true;
+
+            const name = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const createdBy = document.getElementById('custCreatedBy').value.trim();
+
+            if (!name) {
+                showFieldError('errName', 'Customer Name is required.');
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                showFieldError('errEmail', 'Email Address is required.');
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                showFieldError('errEmail', 'Please input a valid email format Address.');
+                isValid = false;
+            }
+
+            if (!phone) {
+                showFieldError('errPhone', 'Phone Number identification is required.');
+                isValid = false;
+            }
+
+            if (!city) {
+                showFieldError('errCity', 'City specification field is required.');
+                isValid = false;
+            }
+
+            if (!createdBy) {
+                showFieldError('errCreatedBy', 'Created By identifier assignment parameter required.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(elementId, textMessage) {
+            const element = document.getElementById(elementId);
+            element.innerText = textMessage;
+            element.classList.remove('hidden');
+        }
+
+        function spawnToast(messageText, notificationType = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+
+            toast.className = `flex items-center space-x-3 px-4 py-3 rounded-xl shadow-lg border text-sm transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
+
+            if (notificationType === 'success') {
+                toast.className += ' bg-emerald-50 border-emerald-200 text-emerald-800';
+                toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 text-base"></i><span>${messageText}</span>`;
+            } else {
+                toast.className += ' bg-rose-50 border-rose-200 text-rose-800';
+                toast.innerHTML = `<i class="fa-solid fa-circle-exclamation text-rose-500 text-base"></i><span>${messageText}</span>`;
+            }
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-4px]');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 4000);
+        }
+
+        async function submitCustomer() {
+            if (!validateCustomerForm()) return;
+
+            const saveBtn = document.getElementById('btnSaveCustomer');
+            const spinner = document.getElementById('loadingSpinner');
+            const btnText = document.getElementById('btnText');
+
+            saveBtn.disabled = true;
+            spinner.classList.remove('hidden');
+            btnText.innerText = 'Saving...';
+
+            const payload = {
+                name: document.getElementById('custName').value.trim(),
+                email: document.getElementById('custEmail').value.trim(),
+                phone: document.getElementById('custPhone').value.trim(),
+                city: document.getElementById('custCity').value.trim(),
+                createdBy: parseInt(document.getElementById('custCreatedBy').value.trim() || "1", 10),
+                address: document.getElementById('custAddress').value.trim()
+            };
+
+            try {
+                const response = await fetch('/api/customer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    spawnToast('Customer created successfully', 'success');
+                    document.getElementById('customerForm').reset();
+
+                    setTimeout(() => {
+                        closeCustomerDrawer();
+                    }, 1000);
+                } else {
+                    spawnToast(`Server error status code reported: ${response.status}`, 'error');
+                }
+            } catch (networkError) {
+                console.error('API Context error connection tracking:', networkError);
+                spawnToast('Network connectivity connection error. Failed to hit backend gateway route.', 'error');
+            } finally {
+                saveBtn.disabled = false;
+                spinner.classList.add('hidden');
+                btnText.innerText = 'Save Customer';
+            }
+        }
+    </script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System</title>
+    <script>window.ALLOWED_ROLES = ["Admin", "User"];</script>
+    <script src="/auth-guard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        .nav-link {
+            transition: all 0.15s ease;
+        }
+
+            .nav-link.active {
+                background: #eef2ff;
+            }
+
+                .nav-link.active i {
+                    color: #4f46e5;
+                }
+
+                .nav-link.active span {
+                    color: #1e293b;
+                    font-weight: 600;
+                }
+
+        .nav-group-btn:hover {
+            background: rgba(15,23,42,0.03);
+        }
+
+        .submenu {
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+
+            .submenu.closed {
+                max-height: 0;
+            }
+
+            .submenu.open {
+                max-height: 260px;
+            }
+
+        .submenu-link {
+            transition: color 0.15s ease;
+        }
+
+            .submenu-link:hover {
+                color: #4338ca;
+            }
+
+            .submenu-link.active {
+                color: #4338ca;
+                font-weight: 600;
+            }
+
+        .chevron {
+            transition: transform 0.2s ease;
+        }
+
+            .chevron.rotated {
+                transform: rotate(180deg);
+            }
+
+        .drawer-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .drawer-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .drawer-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+            .drawer-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+
+        .stat-card {
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+            .stat-card:hover {
+                box-shadow: 0 8px 24px -8px rgba(15,23,42,0.12);
+                transform: translateY(-1px);
+            }
+
+        #sidebar {
+            transition: transform 0.25s ease;
+        }
+
+            #sidebar.sidebar-hidden {
+                transform: translateX(-100%);
+            }
+
+        #sidebarOverlay {
+            transition: opacity 0.25s ease;
+        }
+
+        .chart-card {
+            transition: box-shadow 0.2s ease;
+        }
+
+            .chart-card:hover {
+                box-shadow: 0 8px 24px -8px rgba(15,23,42,0.1);
+            }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased">
+    <div class="flex min-h-screen">
+
+        <!-- ============ SIDEBAR OVERLAY ============ -->
+        <div id="sidebarOverlay" onclick="toggleSidebar()"
+             class="fixed inset-0 bg-black/40 z-30 opacity-0 pointer-events-none"></div>
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside id="sidebar" class="sidebar-hidden w-64 bg-white border-r border-slate-200 flex flex-col fixed top-0 left-0 h-full z-40">
+            <div class="px-6 py-5 flex items-center space-x-2.5">
+                <div class="bg-indigo-600 rounded-lg w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-building text-white text-xs"></i>
+                </div>
+                <p class="text-slate-900 font-bold text-lg leading-tight">ERP System</p>
+            </div>
+
+            <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
+                <a href="/users/index.html" class="nav-link active flex items-center space-x-3 px-3 py-2.5 rounded-lg cursor-pointer">
+                    <i class="fa-solid fa-gauge-high text-slate-500 w-4 text-center text-sm"></i>
+                    <span class="text-slate-700 text-sm font-medium">Dashboard</span>
+                </a>
+
+                <div>
+                    <button onclick="toggleMenu('employeeMenu','employeeChevron')"
+                            class="nav-group-btn w-full flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-users text-slate-500 w-4 text-center text-sm"></i>
+                            <span class="text-slate-800 text-sm font-semibold">Staff Control</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs chevron" id="employeeChevron"></i>
+                    </button>
+                    <div class="submenu closed pl-10 space-y-0.5 mt-0.5" id="employeeMenu">
+                        <a href="/users/index.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm">
+                            <i class="fa-solid fa-list text-xs w-3"></i><span>View Directory</span>
+                        </a>
+                        <a href="/users/create.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm">
+                            <i class="fa-solid fa-user-plus text-xs w-3"></i><span>Onboard Employee</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="toggleMenu('ledgerMenu','ledgerChevron')"
+                            class="nav-group-btn w-full flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-book text-slate-500 w-4 text-center text-sm"></i>
+                            <span class="text-slate-800 text-sm font-semibold">Sales Ledger</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs chevron rotated" id="ledgerChevron"></i>
+                    </button>
+                    <div class="submenu open pl-10 space-y-0.5 mt-0.5" id="ledgerMenu">
+                        <a href="/users/sales-ledger-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm">
+                            <i class="fa-solid fa-receipt text-xs w-3"></i><span>Financial Book</span>
+                        </a>
+                        <a href="/users/ledger-add.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm">
+                            <i class="fa-solid fa-plus text-xs w-3"></i><span>Create Entry</span>
+                        </a>
+                        <button onclick="openCustomerDrawer()" class="w-full submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm text-left">
+                            <i class="fa-solid fa-user-plus text-xs w-3"></i><span>Add Customer</span>
+                        </button>
+                        <a href="/users/customer-list.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm">
+                            <i class="fa-solid fa-users text-xs w-3"></i><span>Customer Base</span>
+                        </a>
+                        <a href="/users/customer-ledger.html" class="submenu-link flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer text-slate-500 text-sm">
+                            <i class="fa-solid fa-file-invoice text-xs w-3"></i><span>Statement Ledger</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="px-3 pb-4 pt-2 border-t border-slate-100 space-y-2">
+                <div class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">A</div>
+                    <div>
+                        <p class="text-slate-800 text-sm font-semibold leading-tight">Admin</p>
+                        <p class="text-slate-400 text-xs">Administrator</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="w-full flex items-center justify-center space-x-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer">
+                    <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                    <span>Log Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============ MAIN ============ -->
+        <main class="flex-1 w-full">
+            <div class="bg-white border-b border-slate-200 px-5 sm:px-8 py-5 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleSidebar()" aria-label="Toggle menu"
+                            class="w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors cursor-pointer shrink-0">
+                        <i class="fa-solid fa-bars text-base"></i>
+                    </button>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-900">Welcome back, Admin!</h1>
+                        <p class="text-sm text-slate-400 mt-0.5" id="currentDate"></p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-sm font-bold">A</div>
+                    <div>
+                        <p class="text-slate-800 text-sm font-semibold leading-tight">Admin</p>
+                        <p class="text-slate-400 text-xs">Administrator</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                    <div class="stat-card bg-white rounded-xl p-5 border border-slate-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-indigo-50 rounded-lg w-10 h-10 flex items-center justify-center">
+                                <i class="fa-solid fa-users text-indigo-600 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="totalEmployees">—</p>
+                        <p class="text-xs font-medium text-slate-500 mt-1.5">Total Employees</p>
+                    </div>
+                    <div class="stat-card bg-white rounded-xl p-5 border border-slate-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-emerald-50 rounded-lg w-10 h-10 flex items-center justify-center">
+                                <i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="activeEmployees">—</p>
+                        <p class="text-xs font-medium text-slate-500 mt-1.5">Active Employees</p>
+                    </div>
+                    <div class="stat-card bg-white rounded-xl p-5 border border-slate-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-rose-50 rounded-lg w-10 h-10 flex items-center justify-center">
+                                <i class="fa-solid fa-circle-xmark text-rose-500 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="inactiveEmployees">—</p>
+                        <p class="text-xs font-medium text-slate-500 mt-1.5">Inactive Employees</p>
+                    </div>
+                    <div class="stat-card bg-white rounded-xl p-5 border border-slate-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-violet-50 rounded-lg w-10 h-10 flex items-center justify-center">
+                                <i class="fa-solid fa-building text-violet-600 text-sm"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-900" id="totalDepts">—</p>
+                        <p class="text-xs font-medium text-slate-500 mt-1.5">Departments</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
+                    <div class="chart-card lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6">
+                        <div class="flex items-center justify-between mb-1">
+                            <h2 class="text-sm font-semibold text-slate-700">Sales Overview</h2>
+                            <span class="flex items-center space-x-1.5 text-xs text-slate-400">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span>Live</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-xs text-slate-400">Revenue by period</p>
+                            <select id="trendRangeSelect" onchange="handleTrendRangeChange()"
+                                    class="text-xs border border-slate-200 rounded-lg px-2 py-1.5 text-slate-600 bg-white focus:outline-hidden focus:border-indigo-400 cursor-pointer">
+                                <option value="14d">Last 14 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                                <option value="6m">Last 6 Months</option>
+                                <option value="12m">Last 12 Months</option>
+                            </select>
+                        </div>
+                        <div class="relative h-64">
+                            <canvas id="salesTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card bg-white rounded-xl border border-slate-200 p-6">
+                        <h2 class="text-sm font-semibold text-slate-700 mb-1">Top Customers</h2>
+                        <p class="text-xs text-slate-400 mb-4">By total sales value</p>
+                        <div class="relative h-64">
+                            <canvas id="topCustomersChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                        <h2 class="text-sm font-semibold text-slate-700">Recent Onboarded Employees</h2>
+                        <a href="/users/index.html" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">View all records →</a>
+                    </div>
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold">Employee</th>
+                                <th class="px-6 py-3 text-left font-semibold">Department</th>
+                                <th class="px-6 py-3 text-left font-semibold">Security Role</th>
+                                <th class="px-6 py-3 text-left font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentEmployees" class="divide-y divide-slate-100">
+                            <tr><td colspan="4" class="px-6 py-6 text-center text-slate-400">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ============ ADD CUSTOMER DRAWER ============ -->
+    <div id="drawerOverlay"
+         onclick="closeCustomerDrawer()"
+         class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out">
+    </div>
+
+    <div id="customerDrawer"
+         class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-[430px] bg-white rounded-l-2xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col h-screen">
+
+        <div class="p-6 border-b border-slate-100 flex items-start justify-between">
+            <div>
+                <h2 class="text-xl font-bold text-slate-900">Add Customer</h2>
+                <p class="text-xs text-slate-500 mt-1">Create a new customer for Sales Ledger</p>
+            </div>
+            <button onclick="closeCustomerDrawer()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-4 drawer-scrollbar">
+            <form id="customerForm" novalidate>
+
+                <div class="mb-4">
+                    <label for="custName" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Customer Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="custName" name="name" placeholder="e.g. Acme Corporation"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errName" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custEmail" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Email Address <span class="text-red-500">*</span></label>
+                    <input type="email" id="custEmail" name="email" placeholder="billing@company.com"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errEmail" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custPhone" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Phone Number <span class="text-red-500">*</span></label>
+                    <input type="tel" id="custPhone" name="phone" placeholder="+1 (555) 019-2834"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errPhone" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custCity" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">City <span class="text-red-500">*</span></label>
+                    <input type="text" id="custCity" name="city" placeholder="e.g. New York"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errCity" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="custCreatedBy" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Created By (User ID) <span class="text-red-500">*</span></label>
+                    <input type="number" id="custCreatedBy" name="createdBy" value="1" placeholder="1"
+                           class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400">
+                    <span id="errCreatedBy" class="text-xs text-red-500 font-medium mt-1 hidden block"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label for="custAddress" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Street Address</label>
+                    <textarea id="custAddress" name="address" rows="3" placeholder="Suite 400, Floor 4..."
+                              class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-slate-400 resize-none"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+            <button type="button" onclick="closeCustomerDrawer()"
+                    class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                Cancel
+            </button>
+            <button type="button" onclick="submitCustomer()" id="btnSaveCustomer"
+                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-sm transition-all flex items-center space-x-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed">
+                <svg id="loadingSpinner" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span id="btnText">Save Customer</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-3 pointer-events-none"></div>
+
+    <script>
+        document.getElementById('currentDate').textContent =
+            "Today is " + new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+        function toggleMenu(menuId, chevronId) {
+            const menu = document.getElementById(menuId);
+            const chevron = document.getElementById(chevronId);
+            menu.classList.toggle('open');
+            menu.classList.toggle('closed');
+            chevron.classList.toggle('rotated');
+        }
+
+        // ==========================================
+        // SIDEBAR TOGGLE (hidden by default)
+        // ==========================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const isHidden = sidebar.classList.contains('sidebar-hidden');
+
+            if (isHidden) {
+                sidebar.classList.remove('sidebar-hidden');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                sidebar.classList.add('sidebar-hidden');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const sidebar = document.getElementById('sidebar');
+                if (!sidebar.classList.contains('sidebar-hidden')) {
+                    toggleSidebar();
+                }
+            }
+        });
+
+        // ==========================================
+        // LOGOUT
+        // ==========================================
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            sessionStorage.clear();
+            window.location.href = '/login.html';
+        }
+
+        async function loadDashboard() {
+            try {
+                const [usersRes, deptsRes] = await Promise.all([
+                    fetch('/api/users'),
+                    fetch('/api/departments')
+                ]);
+                const users = await usersRes.json();
+                const depts = await deptsRes.json();
+
+                document.getElementById('totalEmployees').textContent = users.length;
+                document.getElementById('activeEmployees').textContent = users.filter(u => u.isActive).length;
+                document.getElementById('inactiveEmployees').textContent = users.filter(u => !u.isActive).length;
+                document.getElementById('totalDepts').textContent = depts.length;
+
+                const recent = users.slice(0, 5);
+                const tbody = document.getElementById('recentEmployees');
+
+                if (recent.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-6 text-center text-slate-400">No employees yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = recent.map(u => {
+                    const avatarSrc = (u.profilePicture && u.profilePicture.startsWith('data:'))
+                        ? u.profilePicture
+                        : `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name)}&background=e0e7ff&color=4f46e5&size=40&bold=true`;
+                    return `
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-6 py-3">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="${avatarSrc}" class="w-8 h-8 rounded-full object-cover">
+                                        <div>
+                                            <p class="font-medium text-slate-800 text-sm">${u.name}</p>
+                                            <p class="text-xs text-slate-400">${u.email}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-3 text-slate-600 text-sm">${u.departmentName}</td>
+                                <td class="px-6 py-3 text-slate-600 text-sm">${u.roleName}</td>
+                                <td class="px-6 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium ${u.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-600'}">
+                                        ${u.isActive ? 'Active' : 'Inactive'}
+                                    </span>
+                                </td>
+                            </tr>`;
+                }).join('');
+            } catch (err) {
+                console.error('Dashboard load error:', err);
+            }
+        }
+
+        loadDashboard();
+
+        // ==========================================
+        // LIVE SALES CHARTS
+        // NOTE: this assumes a sales ledger endpoint returning an array of
+        // entries shaped roughly like { invoiceDate, totalAmount, customerName }.
+        // Adjust the field names below (marked with FIELD) to match your
+        // actual API/DB column names if they differ.
+        // ==========================================
+        let salesTrendChart = null;
+        let topCustomersChart = null;
+
+        function pickField(obj, candidates) {
+            for (const key of candidates) {
+                if (obj[key] !== undefined && obj[key] !== null) return obj[key];
+            }
+            return null;
+        }
+
+        async function fetchSalesEntries() {
+            // FIELD: change this endpoint if your sales ledger API route is different
+            const res = await fetch('/api/salesledger');
+            if (!res.ok) throw new Error('Sales ledger request failed: ' + res.status);
+            return res.json();
+        }
+
+        function toLocalDayKey(date) {
+            // Builds a YYYY-MM-DD key from LOCAL date parts.
+            // Never use toISOString() for this — it converts to UTC and
+            // shifts the date backward for timezones ahead of UTC (like PKT).
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function toLocalMonthKey(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            return `${y}-${m}`;
+        }
+
+        function getTrendConfig() {
+            const raw = document.getElementById('trendRangeSelect').value; // e.g. '14d', '6m'
+            const unit = raw.endsWith('m') ? 'month' : 'day';
+            const count = parseInt(raw, 10);
+            return { unit, count };
+        }
+
+        function buildTrendData(entries, config) {
+            const { unit, count } = config;
+            const today = new Date();
+            const buckets = [];
+
+            if (unit === 'day') {
+                for (let i = count - 1; i >= 0; i--) {
+                    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+                    buckets.push({
+                        key: toLocalDayKey(d),
+                        label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                    });
+                }
+            } else {
+                for (let i = count - 1; i >= 0; i--) {
+                    const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+                    buckets.push({
+                        key: toLocalMonthKey(d),
+                        label: d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })
+                    });
+                }
+            }
+
+            const totals = Object.fromEntries(buckets.map(b => [b.key, 0]));
+
+            entries.forEach(entry => {
+                // FIELD: date column
+                const rawDate = pickField(entry, ['invoiceDate', 'date', 'createdAt', 'transactionDate']);
+                // FIELD: amount column
+                const rawAmount = pickField(entry, ['totalAmount', 'amount', 'total', 'grandTotal']);
+                if (!rawDate || rawAmount === null) return;
+
+                const entryDate = new Date(rawDate);
+                const key = unit === 'day' ? toLocalDayKey(entryDate) : toLocalMonthKey(entryDate);
+
+                if (totals[key] !== undefined) {
+                    totals[key] += Number(rawAmount) || 0;
+                }
+            });
+
+            return {
+                labels: buckets.map(b => b.label),
+                values: buckets.map(b => totals[b.key])
+            };
+        }
+
+        function buildTopCustomersData(entries) {
+            const totalsByCustomer = {};
+
+            entries.forEach(entry => {
+                // FIELD: customer name column
+                const name = pickField(entry, ['customerName', 'customer', 'clientName']) || 'Unknown';
+                const rawAmount = pickField(entry, ['totalAmount', 'amount', 'total', 'grandTotal']);
+                if (rawAmount === null) return;
+                totalsByCustomer[name] = (totalsByCustomer[name] || 0) + (Number(rawAmount) || 0);
+            });
+
+            const sorted = Object.entries(totalsByCustomer)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            return {
+                labels: sorted.map(([name]) => name),
+                values: sorted.map(([, total]) => total)
+            };
+        }
+
+        function renderCharts(trend, topCustomers) {
+            const trendCtx = document.getElementById('salesTrendChart');
+            const custCtx = document.getElementById('topCustomersChart');
+
+            if (salesTrendChart) {
+                salesTrendChart.data.labels = trend.labels;
+                salesTrendChart.data.datasets[0].data = trend.values;
+                salesTrendChart.update();
+            } else {
+                salesTrendChart = new Chart(trendCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: trend.labels,
+                        datasets: [{
+                            label: 'Sales',
+                            data: trend.values,
+                            backgroundColor: '#6366f1',
+                            hoverBackgroundColor: '#4f46e5',
+                            borderRadius: 6,
+                            maxBarThickness: 34
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 11 } } },
+                            y: { grid: { color: '#f1f5f9' }, ticks: { color: '#94a3b8', font: { size: 11 } } }
+                        }
+                    }
+                });
+            }
+
+            if (topCustomersChart) {
+                topCustomersChart.data.labels = topCustomers.labels;
+                topCustomersChart.data.datasets[0].data = topCustomers.values;
+                topCustomersChart.update();
+            } else {
+                topCustomersChart = new Chart(custCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: topCustomers.labels,
+                        datasets: [{
+                            data: topCustomers.values,
+                            backgroundColor: '#818cf8',
+                            borderRadius: 6,
+                            maxBarThickness: 28
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: '#f1f5f9' }, ticks: { color: '#94a3b8', font: { size: 11 } } },
+                            y: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 11 } } }
+                        }
+                    }
+                });
+            }
+        }
+
+        let lastSalesEntries = [];
+
+        async function loadSalesCharts() {
+            try {
+                lastSalesEntries = await fetchSalesEntries();
+                const trend = buildTrendData(lastSalesEntries, getTrendConfig());
+                const topCustomers = buildTopCustomersData(lastSalesEntries);
+                renderCharts(trend, topCustomers);
+            } catch (err) {
+                console.error('Sales chart load error:', err);
+            }
+        }
+
+        // Called when the "Last 14 Days / 30 Days / 6 Months / 12 Months" dropdown changes.
+        // Reuses the already-fetched entries instead of hitting the API again.
+        function handleTrendRangeChange() {
+            const trend = buildTrendData(lastSalesEntries, getTrendConfig());
+            renderCharts(trend, buildTopCustomersData(lastSalesEntries));
+        }
+
+        loadSalesCharts();
+        // Refresh every 30s so the charts fluctuate as new sales come in
+        setInterval(loadSalesCharts, 30000);
+
+        // ==========================================
+        // ERP SLIDING RIGHT SIDE DRAWER ENGINE LAYER
+        // ==========================================
+
+        function openCustomerDrawer() {
+            const overlay = document.getElementById('drawerOverlay');
+            const drawer = document.getElementById('customerDrawer');
+
+            overlay.classList.remove('pointer-events-none', 'opacity-0');
+            overlay.classList.add('opacity-100');
+
+            drawer.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeCustomerDrawer() {
+            const overlay = document.getElementById('drawerOverlay');
+            const drawer = document.getElementById('customerDrawer');
+
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+
+            drawer.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+
+            clearValidationErrors();
+        }
+
         window.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 const drawer = document.getElementById('customerDrawer');
